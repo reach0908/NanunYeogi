@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+    <div>
+        <h1>위치목록</h1>
+        <table>
+            <thead>
+            <tr><th>#</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="location : ${locations}">
+                <td th:text="${location.id}"></td>
+                <td th:text="${location.Latitude}"></td>
+                <td th:text="${location.Longitude}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div> <!-- /container -->
+</body>
+</html>

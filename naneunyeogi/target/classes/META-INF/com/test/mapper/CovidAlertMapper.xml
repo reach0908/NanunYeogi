@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.mapper.CovidAlertMapper">
+
+	<select id ="getCovidLongtitude" parameterType="hashmap" resultType="_double">
+	SELECT COVID_LONGTITUDE FROM COVID19 
+	WHERE COVID_NUM=${covidNum} AND COVID_ORDER =${covidOrder}
+	</select>
+	<select id ="getCovidLatitude" parameterType="hashmap" resultType="_double">
+	SELECT COVID_LATITUDE FROM COVID19 
+	WHERE COVID_NUM=${covidNum} AND COVID_ORDER =${covidOrder}
+	</select>
+	<select id ="getUserLongtitude" parameterType="hashmap" resultType="_double">
+	SELECT USER_LONGTITUDE FROM NANEUN_USER 
+	WHERE USER_NUM=#{userNum} AND USER_ORDER =#{userOrder}
+	</select>
+	<select id ="getUserLatitude" parameterType="hashmap" resultType="_double">
+	SELECT USER_LATITUDE FROM NANEUN_USER 
+	WHERE USER_NUM=#{userNum} AND USER_ORDER =#{userOrder}
+	</select>
+	<select id="getUserOrders" parameterType="_int" resultType ="_int">
+		SELECT USER_ORDER FROM NANEUN_USER WHERE USER_NUM=#{userNum}
+	</select>
+	<insert id="insertCovidDangerInfo">
+		INSERT INTO COVID_DANGER
+		(USER_NUM, USER_ORDER, COVID_NUM, COVID_ORDER)
+		VALUES(${user_num}, ${user_order}, ${covid_num}, ${covid_order})
+	</insert>
+	<select id ="getUserOrderCnt" parameterType="_int" resultType ="_int">
+		SELECT COUNT(USER_ORDER) FROM NANEUN_USER WHERE USER_NUM = #{userNum}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

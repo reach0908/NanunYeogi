@@ -5,21 +5,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-//@RequestMapping("/")
-public class NaverController {
+public class HelloController {
 
-    @GetMapping("naver")
-    public String naver()
+    @GetMapping("hello")
+    public String hello()
     {
-        return "naver";
+        return "hi";
     }
 
-    @GetMapping("login")
-    public String callback()
+    @RequestMapping("/")
+    public String Login()
     {
-        return "navercallback";
+        return "Login";
     }
-
 
 
 }

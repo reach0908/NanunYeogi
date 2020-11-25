@@ -1,7 +1,8 @@
-package com.example.demo;
+package com.example.demo.service;
 
+import com.example.demo.DemoApplication;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,19 +10,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-@SpringBootApplication
-public class DemoApplication {
+@Service
+public class NaverService {
 
-    public static void main(String[] args) {
-
-        SpringApplication.run(DemoApplication.class, args);
-
-        String token = "AAAAOPRo7Fr35B5NZ0fDPfKzSaCvALT_d2xL64JRVMesgxt-tK1Y-EukvUCLWgZ6S3JlSZVOHyGH0CVUG1-GuyScvHI"; // 네이버 로그인 접근 토큰;
+    public String getProfile(String token) {
+//        String token = ""; // 네이버 로그인 접근 토큰;
         String header = "Bearer " + token; // Bearer 다음에 공백 추가
 
         String apiURL = "https://openapi.naver.com/v1/nid/me";
@@ -31,6 +28,7 @@ public class DemoApplication {
         String responseBody = get(apiURL,requestHeaders);
 
         System.out.println(responseBody);
+        return responseBody;
     }
 
     private static String get(String apiUrl, Map<String, String> requestHeaders){
@@ -44,6 +42,7 @@ public class DemoApplication {
             int responseCode = con.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 호출
                 return readBody(con.getInputStream());
+
             } else { // 에러 발생
                 return readBody(con.getErrorStream());
             }

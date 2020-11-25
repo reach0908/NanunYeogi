@@ -45,6 +45,7 @@
         br.close();
         if(responseCode==200) {
             out.println(res.toString());
+            //session.setAttribute("token",con.getResponseMessage() );
         }
     } catch (Exception e) {
         System.out.println(e);

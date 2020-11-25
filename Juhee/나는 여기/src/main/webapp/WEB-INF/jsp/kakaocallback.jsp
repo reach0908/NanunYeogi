@@ -7,15 +7,21 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>카카오로그인</title>
 </head>
+
+
 <body>
 <c:if test="${userId eq null}">
-    <a href="https://kauth.kakao.com/oauth/authorize?client_id=34b92c6aafabb13e147ab7f1d1ea468f&redirect_uri=http://localhost:8080/callback&response_type=code">
-<%--        <img src="kakao_login.png">--%>
-        <p>login</p>
+    <a href="https://kauth.kakao.com/oauth/authorize
+            ?client_id=b5f85af25d1bdf961d4f2016bafe3c6e
+            &redirect_uri=http://localhost:8000/login
+            &response_type=code">
+        <img src="/img/kakao_account_login_btn_medium_wide_ov.png">
     </a>
 </c:if>
 <c:if test="${userId ne null}">
     <h1>로그인 성공입니다</h1>
+    <input type="button" value="로그아웃" onclick="location.href='/logout'">
 </c:if>
 </body>
+
 </html>

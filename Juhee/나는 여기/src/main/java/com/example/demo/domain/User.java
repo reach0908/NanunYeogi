@@ -16,12 +16,17 @@ import java.util.List;
 @Table
 public class User {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     @Column(updatable=false)
-    private int id;
+    private String id;
 
     @Column(nullable = false,unique = true)
-    private String username;
+    private String email;
+
+    @Column
+    private String social;
+//    @OneToMany(mappedBy = "location")
+//    private List<Location> locations=new ArrayList<>();
 
 //    @Column
 //    private boolean is_kakao=false;

@@ -17,11 +17,11 @@ public class CovidService {
     @Autowired
     LocationRepository locationRepository;
 
-    public List<Integer> AlertCovid (int uid, Date date)
+    public List<String> AlertCovid (String uid, Date date)
     {
         // -2~2일간 확진자 이동경로
         List<Location> covoidList=locationRepository.getLocationsByUserIdAndCreated_atBetween(uid,new Timestamp(date.getTime()));
-        List<Integer> alertUser=new ArrayList<>();
+        List<String> alertUser=new ArrayList<>();
 
         for(int i=0;i<covoidList.size();i++)
         {

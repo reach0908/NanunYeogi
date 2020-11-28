@@ -17,7 +17,7 @@
 <%--</a>--%>
 
 <c:if test="${userId eq null}">
-    <a href="https://kauth.kakao.com/oauth/authorize?client_id=34b92c6aafabb13e147ab7f1d1ea468f&redirect_uri=http://localhost:8080/callback&response_type=code">
+    <a href="https://kauth.kakao.com/oauth/authorize?client_id=34b92c6aafabb13e147ab7f1d1ea468f&redirect_uri=http://localhost:8080/kcallback&response_type=code">
             <%--            <img src="/jsp/kakao_login.png">--%>
         <p>카카오 login</p>
     </a>
@@ -29,7 +29,7 @@
 
 <%
     String clientId = "NpWqZIHItQqZii0GRios";//애플리케이션 클라이언트 아이디값";
-    String redirectURI = URLEncoder.encode("http://localhost:8080/login", "UTF-8");
+    String redirectURI = URLEncoder.encode("http://localhost:8080/ncallback", "UTF-8");
     SecureRandom random = new SecureRandom();
     String state = new BigInteger(130, random).toString();
     String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";

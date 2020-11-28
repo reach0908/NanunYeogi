@@ -27,18 +27,19 @@ public class LoginController {
         return "kakao";
     }
 
-    @GetMapping("/callback")
+    @GetMapping("/kcallback")
     public String callback(@RequestParam("code") String code, HttpSession session) {
         String access_Token = kakaoService.getAccessToken(code);
         System.out.println("controller access_token : " + access_Token);
 
-        HashMap<String, Object> userInfo = kakaoService.getUserInfo(access_Token);
-        System.out.println("login Controller : " + userInfo);
 
-        if (userInfo.get("nickname") != null) {
-            session.setAttribute("userId", userInfo.get("nickname"));
-            session.setAttribute("access_Token", access_Token);
-        }
+//        HashMap<String, Object> userInfo = kakaoService.getUserInfo(access_Token);
+//        System.out.println("login Controller : " + userInfo);
+//
+//        if (userInfo.get("nickname") != null) {
+//            session.setAttribute("userId", userInfo.get("nickname"));
+//            session.setAttribute("access_Token", access_Token);
+//        }
 
         return "kakaocallback";
     }
@@ -50,10 +51,10 @@ public class LoginController {
         return "naver";
     }
 
-    @GetMapping("login")
+    @GetMapping("ncallback")
     public String callback()
     {
-        String token="AAAAODoME_yp6-jsIAPBpRFZeWlUefs1Zt8zE1TlQwHtXx-0PfXKXAex14YzYw3jQp-qyM0iuVMuwf-z6WIYy0OzGlk";
+       // String token="AAAAODoME_yp6-jsIAPBpRFZeWlUefs1Zt8zE1TlQwHtXx-0PfXKXAex14YzYw3jQp-qyM0iuVMuwf-z6WIYy0OzGlk";
 
         return "navercallback";
     }

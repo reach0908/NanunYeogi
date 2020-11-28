@@ -19,10 +19,10 @@ public class CovidController {
     private CovidService covidService;
 
     @RequestMapping(value = "/covid/{uid}",method = RequestMethod.GET)
-    public void AlertCovid(@RequestParam int uid, @RequestBody HashMap<String,String> map)
+    public void AlertCovid(@RequestParam String uid, @RequestBody HashMap<String,String> map)
     {
         Date date=new Date(map.get("date"));
-        List<Integer> alertUser=covidService.AlertCovid(uid,date);
+        List<String> alertUser=covidService.AlertCovid(uid,date);
         // 알람 발생
     }
 

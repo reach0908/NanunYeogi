@@ -20,15 +20,15 @@ public class LocationController {
     private LocationService locationService;
 
     // 위치 추가
-    @PostMapping(value = "/locations")
-    public void StoreLocation(@RequestBody HashMap<String,String> map)
+    @PostMapping(value = "/locations/{uid}")
+    public void StoreLocation(@PathVariable String uid,@RequestBody HashMap<String,String> map)
     {
-        locationService.setLocation(map);
+        locationService.setLocation(uid,map);
     }
 
     // 이동경로
     @GetMapping(value = "/locations/{uid}")
-    public List<Location> GetLocations(@PathVariable int uid, @RequestBody HashMap<String,String> map)
+    public List<Location> GetLocations(@PathVariable String uid, @RequestBody HashMap<String,String> map)
     {
         Timestamp date=Timestamp.valueOf(map.get("date"));
         System.out.println(map.get("date"));

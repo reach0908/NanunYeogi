@@ -21,21 +21,21 @@ public class LocationService {
     @Autowired
     private UserRepository userRepository;
 
-    public void setLocation(HashMap<String,String> map)
+    public void setLocation(String uid,HashMap<String,String> map)
     {
-        int user_id=Integer.parseInt(map.get("user"));
         double latitude=Double.parseDouble(map.get("latitude"));
         double longitude=Double.parseDouble(map.get("longitude"));
 
         Location location=new Location();
-        location.setUser(userRepository.getOne(user_id));
+        location.setUser(userRepository.getOne(uid));
         location.setLatitude(latitude);
         location.setLongitude(longitude);
+        location.setCreated_at(new Timestamp(new Date().getTime()));
 
         locationRepository.save(location);
     }
 
-    public List<Location> getLocations(int uid, Timestamp date)
+    public List<Location> getLocations(String uid, Timestamp date)
     {
         List<Location> locations=locationRepository.getLocationsByUserIdAndCreated_atEquals(uid,date);
 

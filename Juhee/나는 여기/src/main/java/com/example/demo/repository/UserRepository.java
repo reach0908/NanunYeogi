@@ -7,5 +7,10 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface UserRepository extends JpaRepository<User,Integer> {
+public interface UserRepository extends JpaRepository<User,String> {
+
+    public User getUserByEmail(String email);
+
+    public User getUserById(String id);
+
 }

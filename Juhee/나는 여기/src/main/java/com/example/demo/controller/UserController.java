@@ -13,11 +13,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping(value = "/users")
-    public void StoreUser(@RequestBody HashMap<String,String> map)
-    {
-        String name=map.get("username");
-        userService.setUser(name);
-    }
+//    @PostMapping(value = "/users")
+//    public void StoreUser(@RequestBody HashMap<String,String> map)
+//    {
+//        String name=map.get("username");
+//        userService.setUser(name);
+//    }
 
 }

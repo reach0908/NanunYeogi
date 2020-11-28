@@ -34,4 +34,5 @@ public class Location {
     private Timestamp created_at;
 
 
+
 }

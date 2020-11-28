@@ -3,6 +3,11 @@ package com.example.demo.controller;
 import com.example.demo.domain.User;
 import com.example.demo.service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -36,27 +40,37 @@ public class JwtController {
     @CrossOrigin("http://localhost:8081")
     @GetMapping(value = "login")
     @ExceptionHandler
-    public ResponseEntity<Map<String,Object>> signin(@RequestBody HashMap<String ,String > map, HttpServletResponse res)
-    {
+    public ResponseEntity<Map<String,Object>> signin(@RequestBody HashMap<String ,String > map, HttpServletResponse res){
         System.out.println("LOGIN");
         Map<String,Object> resultMap=new HashMap<>();
         HttpStatus status=null;
         ObjectMapper objectMapper=new ObjectMapper();
 
-        // 토큰 확인
+
         String token=map.get("token");
         String social=map.get("social");
-        if(social=="naver")
+        // 토큰 확인
+        if(social.equals("naver"))
         {
             String profile=naverService.getProfile(token);
-            if(profile==null)
+            if(profile.isEmpty())
             {
                 status=HttpStatus.UNAUTHORIZED;
                 return new ResponseEntity<Map<String,Object>>(resultMap,status);
             }
+            JsonParser parser=new JsonParser();
+            JsonElement element = parser.parse(profile);
+
+            JsonObject response = element.getAsJsonObject().get("response").getAsJsonObject();
+
+            String id=response.getAsJsonObject().get("id").getAsString();
+            String email=response.getAsJsonObject().get("email").getAsString();
+
             System.out.println(profile);
+            map.put("id",id);
+            map.put("email",email);
         }
-        else if(social=="kakao")
+        else
         {
             HashMap<String,Object> Info=kakaoService.getUserInfo(token);
             if(Info.isEmpty())
@@ -64,6 +78,12 @@ public class JwtController {
                 status=HttpStatus.UNAUTHORIZED;
                 return new ResponseEntity<Map<String,Object>>(resultMap,status);
             }
+            String id=Info.get("id").toString();
+            // email확인x
+            String email=Info.get("nickname").toString();
+            System.out.println(email);
+            map.put("id",id);
+            map.put("email","kakao_email");
         }
 
 

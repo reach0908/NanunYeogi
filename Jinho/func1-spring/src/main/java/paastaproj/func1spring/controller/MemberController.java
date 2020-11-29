@@ -15,7 +15,7 @@ import java.util.List;
 public class MemberController {
     private final MemberService memberService;
     //컴포넌트 스캔방식의 DI , 그 중에서도 생성자 주입입
-   //@Autowired
+    //@Autowired
     public MemberController(MemberService memberService){
         this.memberService = memberService;
     }

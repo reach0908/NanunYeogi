@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>지도 화면</title>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=fgocun0nnd"></script>
+</head>
+<body>
+
+<div id="map" style="width:100%;height:100vh;"></div>
+<div class="container">
+    <script th:inline="javascript">
+    var polylinePath = new Array();
+    var markerArr = new Array();
+
+    /*<![CDATA[*/
+
+	/*[# th:each="location : ${locations}"]*/
+	savePath(/*[[${location.Latitude}]]*/,/*[[${location.Longitude}]]*/);
+	/*[/]*/
+	/*[# th:each="mark : ${myloca}"]*/
+	saveMarker(/*[[${mark.Latitude}]]*/,/*[[${mark.Longitude}]]*/);
+	/*[/]*/
+	/*]]>*/
+
+    function savePath(latitude,longitude){
+        polylinePath.push(new naver.maps.LatLng(latitude,longitude));
+    }
+    function saveMarker(latitude,longitude){
+        markerArr.push(new naver.maps.LatLng(latitude,longitude));
+    }
+</script>
+
+    <script>
+
+var mapOptions = {
+    center: polylinePath[0],
+    zoom: 15
+};
+
+var map = new naver.maps.Map('map', mapOptions);
+
+	var polyline = new naver.maps.Polyline({
+		path : polylinePath,
+		strokeColor : '#FF0000', //선 색 빨강 #빨강,초록,파랑
+		strokeOpacity : 0.8, //선 투명도 0 ~ 1
+		strokeWeight : 6, //선 두께
+		map : map
+	});
+
+var marker = new naver.maps.Marker({
+    position: markerArr[0],
+    map: map
+});
+
+
+
+for(var i=0;i<markerArr.length;i++){
+    var marker = new naver.maps.Marker({
+        position: markerArr[i],
+        map: map
+    });
+}
+
+</script>
+</div>
+</body>
+</html>

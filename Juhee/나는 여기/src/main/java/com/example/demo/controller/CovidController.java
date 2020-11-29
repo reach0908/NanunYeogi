@@ -24,6 +24,8 @@ public class CovidController {
         Date date=new Date(map.get("date"));
         List<String> alertUser=covidService.AlertCovid(uid,date);
         // 알람 발생
+
+
     }
 
 

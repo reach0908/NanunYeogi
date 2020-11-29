@@ -37,6 +37,16 @@ public class LocationController {
         return locations;
     }
 
+    @GetMapping(value = "/locations/{uid}/map")
+    public List<Location> GetMaplocations(@PathVariable String uid, @RequestBody HashMap<String,String> map)
+    {
+        Timestamp date=Timestamp.valueOf(map.get("date"));
+        System.out.println(map.get("date"));
+        List<Location> locations=locationService.getLocations(uid,date);
+
+        return locations;
+    }
+
 
 
 }

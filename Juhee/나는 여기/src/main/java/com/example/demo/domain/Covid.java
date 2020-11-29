@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -17,10 +19,17 @@ public class Covid {
     @Column(updatable=false)
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column
+    private int covid_id;
 
     @Column
-    private Date created_at;
+    private double latitude;
+
+    // 경도
+    @Column
+    private double longitude;
+
+    @Column
+    private Timestamp created_at;
 }
+

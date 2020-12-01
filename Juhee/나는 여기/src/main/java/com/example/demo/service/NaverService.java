@@ -65,9 +65,9 @@ public class NaverService {
     }
 
     private static String readBody(InputStream body){
-        InputStreamReader streamReader = new InputStreamReader(body);
+//        InputStreamReader streamReader = new InputStreamReader(body);
 
-        try (BufferedReader lineReader = new BufferedReader(streamReader)) {
+        try (BufferedReader lineReader = new BufferedReader(new InputStreamReader(body,"utf-8"))) {
             StringBuilder responseBody = new StringBuilder();
 
             String line;

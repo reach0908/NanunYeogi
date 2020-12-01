@@ -1,0 +1,43 @@
+---
+
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+
+  name: private-registry
+
+spec:
+
+  selector:
+
+    matchLabels:
+
+      app: private-registry
+
+  replicas: 1
+
+  template:
+
+    metadata:
+
+      labels:
+
+        app: private-registry
+
+    spec:
+
+      containers:
+
+      - name: private-registry
+
+        image: a4afae85-bdee-4612-8170-f18c574ae8a6.private-image-repository.default.paasta-container-service.bosh:5000/registry:latest
+
+        ports:
+
+        - containerPort: 5000
+
+      imagePullSecrets:
+
+      - name: paasta

@@ -20,7 +20,7 @@ public class Covid {
     private int id;
 
     @Column
-    private int covid_id;
+    private int covid_num;
 
     @Column
     private double latitude;

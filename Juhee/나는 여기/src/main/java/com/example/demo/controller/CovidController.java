@@ -1,16 +1,19 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.CovidService;
+import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class CovidController {
@@ -26,6 +29,31 @@ public class CovidController {
         // 알람 발생
 
 
+    }
+
+    @GetMapping(value = "/covid")
+    public ResponseEntity<Map<String,Object>> data_api(HttpServletResponse res)
+    {
+        Map<String,Object> resultMap=new HashMap<>();
+        HttpStatus status=null;
+
+        try {
+            String data=covidService.data_api();
+
+//            JSONParser parser = new JSONParser();
+//            Object obj = parser.parse( data );
+//            JSONObject jsonObj = (JSONObject) obj;
+            status=HttpStatus.ACCEPTED;
+            resultMap.put("items",data);
+            resultMap.put("status",true);
+
+            return new ResponseEntity<Map<String,Object>>(resultMap,status);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        status=HttpStatus.BAD_REQUEST;
+        return new ResponseEntity<Map<String,Object>>(resultMap,status);
     }
 
 

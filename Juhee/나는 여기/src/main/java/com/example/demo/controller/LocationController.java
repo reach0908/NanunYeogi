@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.Location;
+//import com.example.demo.dto.Location_dto;
 import com.example.demo.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,11 +40,10 @@ public class LocationController {
     }
 
     @GetMapping(value = "/locations/{uid}/map")
-    public List<Location> GetMaplocations(@PathVariable String uid, @RequestBody HashMap<String,String> map)
-    {
+    public List<Location> GetMaplocations(@PathVariable String uid, @RequestBody HashMap<String,String> map) throws Exception {
         Timestamp date=Timestamp.valueOf(map.get("date"));
         System.out.println(map.get("date"));
-        List<Location> locations=locationService.getLocations(uid,date);
+        List<Location> locations=locationService.navigation(uid,date);
 
         return locations;
     }

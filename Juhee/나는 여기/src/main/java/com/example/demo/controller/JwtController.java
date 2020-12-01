@@ -11,6 +11,7 @@ import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
+@Controller
 public class JwtController {
 
     @Autowired
@@ -36,8 +37,8 @@ public class JwtController {
 
     @Autowired
     private KakaoService kakaoService;
-
-    @CrossOrigin("http://localhost:8081")
+//
+//    @CrossOrigin("http://localhost:8081")
     @GetMapping(value = "login")
     @ExceptionHandler
     public ResponseEntity<Map<String,Object>> signin(@RequestBody HashMap<String ,String > map, HttpServletResponse res){
@@ -96,7 +97,7 @@ public class JwtController {
 
             resultMap.put("status",true);
             resultMap.put("user",loginUser);
-            resultMap.put("locations",locationService.getLocations(loginUser.getId(),new Timestamp(new Date().getTime())));
+            //resultMap.put("locations",locationService.getLocations(loginUser.getId(),new Timestamp(new Date().getTime())));
 
             status=HttpStatus.ACCEPTED;
             return new ResponseEntity<Map<String,Object>>(resultMap,status);

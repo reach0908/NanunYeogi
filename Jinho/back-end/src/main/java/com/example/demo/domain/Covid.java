@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table
+@IdClass(CovidPk.class)
 public class Covid {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

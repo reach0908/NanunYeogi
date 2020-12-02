@@ -26,6 +26,9 @@ public class User {
 
     @Column
     private String social;
+    
+    @Column
+    private String phoneNum;
 
 //    User(String id, String email){
 //        this.id = id;

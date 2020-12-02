@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+import com.example.demo.domain.User;
 import com.example.demo.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,12 +19,15 @@ public class JwtInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println(request.getMethod()+ " : "+ request.getServletPath());
 
+
         if(request.getMethod().equals("OPTIONS"))
             return true;
         else{
             String token=request.getHeader("jwt-auth-token");
             if(token!=null&&token.length()>0){
-                jwtService.checkValid(token);
+                User user=jwtService.checkValid(token);
+                System.out.println("유저정보 "+user.getId());
+                request.setAttribute("user",user);
                 System.out.println("토큰 사용가능 : "+token);
                 return true;
 

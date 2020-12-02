@@ -1,0 +1,32 @@
+{
+  "application_env_json": {
+    "VCAP_APPLICATION": {
+      "cf_api": "https://api.paas-ta.org",
+      "limits": {
+        "fds": 16384,
+        "mem": 1024,
+        "disk": 1024
+      },
+      "application_name": "Yeogi",
+      "application_uris": [
+        "Yeogi.paas-ta.org"
+      ],
+      "name": "Yeogi",
+      "space_name": "dev",
+      "space_id": "57304076-c1bc-4602-af3b-eb36377843ec",
+      "uris": [
+        "Yeogi.paas-ta.org"
+      ],
+      "users": null,
+      "application_id": "8879c09b-204e-4bae-9542-34329d99b0e3",
+      "version": "365c76c2-b9ca-4836-8a9b-fab0c92d07ae",
+      "application_version": "365c76c2-b9ca-4836-8a9b-fab0c92d07ae"
+    }
+  },
+  "environment_json": {},
+  "running_env_json": {},
+  "staging_env_json": {},
+  "system_env_json": {
+    "VCAP_SERVICES": {}
+  }
+}

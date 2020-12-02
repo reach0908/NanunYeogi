@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
@@ -97,10 +98,16 @@ public class JwtController {
 
             resultMap.put("status",true);
             resultMap.put("user",loginUser);
+
+            RedirectView redirectView = new RedirectView();
+            redirectView.setUrl("http://localhost:3000/qrcheckin");
+
+//            return "redirect:http://localhost:3000/qrcheckin/" + access_Token;
+
             //resultMap.put("locations",locationService.getLocations(loginUser.getId(),new Timestamp(new Date().getTime())));
 
-            status=HttpStatus.ACCEPTED;
-            return new ResponseEntity<Map<String,Object>>(resultMap,status);
+//            status=HttpStatus.ACCEPTED;
+//            return new ResponseEntity<Map<String,Object>>(resultMap,status);
 
 
 //            if(loginUser==null)

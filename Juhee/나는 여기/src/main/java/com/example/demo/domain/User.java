@@ -20,6 +20,9 @@ public class User {
 
     @Column
     private String social;
+
+    @Column
+    private String phone;
 //    @OneToMany(mappedBy = "location")
 //    private List<Location> locations=new ArrayList<>();
 

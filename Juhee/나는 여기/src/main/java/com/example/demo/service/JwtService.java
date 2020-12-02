@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,10 +44,20 @@ public class JwtService {
     }
 
     // 전달된 토큰이 제대로 생성된 것인지 확인
-    public void checkValid(final String jwt){
+    public User checkValid(final String jwt){
         System.out.println("check valid token");
         log.trace("토큰 점검 : {}",jwt);
-        Jwts.parser().setSigningKey(salt.getBytes()).parseClaimsJws(jwt);
+        Object obj= Jwts.parser().setSigningKey(salt.getBytes()).parseClaimsJws(jwt);
+
+        // 토큰 분석
+        ObjectMapper oMapper = new ObjectMapper();
+        Map<String, Map<String, Object>> map = oMapper.convertValue(obj, Map.class);
+        System.out.println(map.get("body").get("user"));
+        User user=oMapper.convertValue(map.get("body").get("user"),User.class);
+
+
+        System.out.println("토큰 정보"+obj.toString());
+        return user;
     }
 
     // 토큰 분석해 필요한 정보 봔환

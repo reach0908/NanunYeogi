@@ -30,12 +30,25 @@ public class UserController {
     @GetMapping("/users")
     public List<User> getallUsers(NativeWebRequest webRequest)
     {
-        User user=(User)webRequest.getAttribute("user", SCOPE_REQUEST);
+        String uid=webRequest.getAttribute("user_id", SCOPE_REQUEST).toString();
 
-        System.out.println("getUser "+user);
+        System.out.println("getUserId "+uid);
         List <User> users=userService.AllUsers();
         return users;
     }
+
+    @PutMapping("/user/info")
+    public void updatePhone(NativeWebRequest webRequest,@RequestBody HashMap<String,String> map)
+    {
+        String Phone=map.get("Phone");
+        String uid=webRequest.getAttribute("user_id", SCOPE_REQUEST).toString();
+
+        System.out.println("user id : " + uid);
+        System.out.println("phoneNumber : " + Phone);
+
+        User user=userService.updatePhone(uid,Phone);
+    }
+
 
 //    @GetMapping("/user")
 //    public void setUser()

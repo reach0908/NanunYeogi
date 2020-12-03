@@ -5,6 +5,9 @@ import com.example.demo.service.JwtService;
 import com.example.demo.service.KakaoService;
 import com.example.demo.service.NaverService;
 import com.example.demo.service.UserService;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -46,50 +49,63 @@ public class LoginController {
     }
 
     @GetMapping("/kcallback")
-    public RedirectView kcallback(@RequestParam("code") String code, HttpServletResponse res) {
+    public RedirectView kcallback(@RequestParam("code") String code, HttpServletResponse res,HttpSession session) {
         String access_Token = kakaoService.getAccessToken(code);
         System.out.println("controller access_token : " + access_Token);
 
         Map<String,Object> resultMap=new HashMap<>();
         HashMap<String ,String > map=new HashMap<>();
         String social="kakao";
+        String url="http://localhost:3000/qrcheckin?token=";
 
         HashMap<String, Object> userInfo = kakaoService.getUserInfo(access_Token);
         System.out.println("login Controller : " + userInfo);
         HttpStatus status=null;
 
-//        if(userInfo.isEmpty())
-//        {
-//            status=HttpStatus.UNAUTHORIZED;
-//            //return new ResponseEntity<Map<String,Object>>(resultMap,status);
-//        }
         String id=userInfo.get("id").toString();
-        String email=userInfo.get("nickname").toString();
+        String email=userInfo.get("email").toString();
         System.out.println(email);
 
+        if (userInfo.get("userId") != null) {
+             session.setAttribute("userId", userInfo.get("nickname"));
+             session.setAttribute("access_Token", access_Token);
+         }
+
         map.put("id",id);
-        map.put("email","kakao_email");
+        map.put("email",email);
         map.put("social",social);
 
-        User user=userService.setUser(map);
+        User user=userService.signin(map);
+        if(user.getPhone()==null)
+        {
+            // url 설정
+        }
+
         String jwt_token=jwtService.create(user);
         res.setHeader("jwt-auth-token",jwt_token);
 
-        resultMap.put("status",true);
-        resultMap.put("user",user);
+//        resultMap.put("status",true);
+//        resultMap.put("user",user);
         //resultMap.put("locations",locationService.getLocations(loginUser.getId(),new Timestamp(new Date().getTime())));
 
         status=HttpStatus.ACCEPTED;
 //        return new ResponseEntity<Map<String,Object>>(resultMap,status);
 
         RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://localhost:3000/qrcheckin");
+        redirectView.setUrl(url+jwt_token);
 //        redirectView.set
 
         return redirectView;
 //        return "redirect:http://localhost:3000/qrcheckin/" + access_Token;
     }
 
+    @RequestMapping(value="/logout")
+    public String logout(HttpSession session) {
+        kakaoService.kakaoLogout((String)session.getAttribute("access_Token"));
+        session.removeAttribute("access_Token");
+        session.removeAttribute("userId");
+        return "Login";
+    }
 
     @GetMapping("naver")
     public String naver()
@@ -97,37 +113,52 @@ public class LoginController {
         return "naver";
     }
 
-    @GetMapping("ncallback")
-    public String ncallback(@RequestParam("code") String code,@RequestParam("code") String state,HttpServletResponse res) throws ParseException {
+    @GetMapping("/ncallback")
+    public RedirectView ncallback(@RequestParam("code") String code,@RequestParam("state") String state,HttpServletResponse res) throws ParseException, UnsupportedEncodingException {
 
-        //String token="AAAAOGlyXq5u6folkiTHTm_emqaKH15_KLYcJ7UiY-I7zedeMMMesewf750ZQjSH-6qJaB7GQwvJVKU_MgPhlb0Snjk";
+        String social="naver";
+        String url="http://localhost:3000/qrcheckin?token=";
+        RedirectView redirectView = new RedirectView();
+            HashMap<String,Object> token_map=naverService.getToken(code,state);
 
-        try {
-            HashMap<String,Object> map=naverService.getToken(code,state);
+//            if(token_map.get("status").equals(true))
+//            {
+            String response=token_map.get("res").toString();
+            System.out.println("naver response"+response);
 
-            if(map.get("status").equals(true))
-            {
-                String response=map.get("res").toString();
-                System.out.println("naver response"+response);
-                JSONParser parser=new JSONParser();
-                JSONObject obj_token=(JSONObject)parser.parse(response);
-                String token=obj_token.get("access_token").toString();
-                System.out.println("naver token"+token);
+            JSONParser parser=new JSONParser();
+            JSONObject obj_token=(JSONObject)parser.parse(response);
+            String token=obj_token.get("access_token").toString();
+            System.out.println("naver token"+token);
 
-                String profile=naverService.getProfile(token);
+            String profile=naverService.getProfile(token);
 
-                Object obj = parser.parse( profile  );
-                JSONObject jsonObj = (JSONObject) obj;
-                System.out.println(profile);
-                
-//                String code = (String) jsonObj.get("response");
-                
-//                System.out.println("response"+code);
+            JsonParser jsonparser=new JsonParser();
+            JsonElement element = jsonparser.parse(profile);
+
+            JsonObject res_profile = element.getAsJsonObject().get("response").getAsJsonObject();
+
+            String id=res_profile.getAsJsonObject().get("id").getAsString();
+            String email=res_profile.getAsJsonObject().get("email").getAsString();
+
+            HashMap<String,String> map=new HashMap<>();
+
+            map.put("id",id);
+            map.put("email",email);
+            map.put("social",social);
+            System.out.println(profile);
+
+            User user=userService.signin(map);
+            if(user.getPhone()==null){
+                //return "createForm";
+                // 폰반호 입력 url
             }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
 
-        return "navercallback";
+            String jwt_token=jwtService.create(user);
+            res.setHeader("jwt-auth-token",jwt_token);
+
+        redirectView.setUrl(url+jwt_token);
+        return redirectView;
+
     }
 }

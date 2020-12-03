@@ -132,6 +132,28 @@
             <version>3.1.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 문자 api -->
+        <!-- https://mvnrepository.com/artifact/net.nurigo/javaSDK -->
+        <dependency>
+            <groupId>net.nurigo</groupId>
+            <artifactId>javaSDK</artifactId>
+            <version>2.2</version>
+        </dependency>
+
+        <!-- http protocol -->
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>

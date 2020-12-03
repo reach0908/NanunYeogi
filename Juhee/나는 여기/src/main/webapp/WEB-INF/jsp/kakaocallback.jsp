@@ -12,7 +12,7 @@
 <body>
 <c:if test="${userId eq null}">
     <a href="https://kauth.kakao.com/oauth/authorize
-            ?client_id=b5f85af25d1bdf961d4f2016bafe3c6e
+            ?client_id=a863152a6c9a88819b4482a0b970723a
             &redirect_uri=http://localhost:8000/kcallback
             &response_type=code">
         <img src="/img/kakao_account_login_btn_medium_wide_ov.png">

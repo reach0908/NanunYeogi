@@ -49,4 +49,13 @@ public class UserService {
 
         return users;
     }
+
+    public User updatePhone(String uid,String Phone)
+    {
+        User user=userRepository.getUserById(uid);
+        user.setPhone(Phone);
+        userRepository.save(user);
+
+        return user;
+    }
 }

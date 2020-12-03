@@ -33,8 +33,9 @@ public class DemoApplication implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor).addPathPatterns("/**")
-                .excludePathPatterns("/login")
                 .excludePathPatterns("/")
+                .excludePathPatterns("/covid")
+                .excludePathPatterns("/logout")
                 .excludePathPatterns("/kcallback")
                 .excludePathPatterns("/ncallback");
 

@@ -29,30 +29,30 @@ public class LocationController {
     @PostMapping(value = "/locations")
     public void StoreLocation(NativeWebRequest webRequest,@RequestBody HashMap<String,String> map)
     {
-        User user=(User)webRequest.getAttribute("user", SCOPE_REQUEST);
-        locationService.setLocation(user.getId(),map);
+        String uid=webRequest.getAttribute("user_id", SCOPE_REQUEST).toString();
+        locationService.setLocation(uid,map);
     }
 
     // 이동경로
     @GetMapping(value = "/locations")
     public List<Location> GetLocations(NativeWebRequest webRequest, @RequestBody HashMap<String,String> map)
     {
-        User user=(User)webRequest.getAttribute("user", SCOPE_REQUEST);
+        String uid=webRequest.getAttribute("user_id", SCOPE_REQUEST).toString();
 
         Timestamp date=Timestamp.valueOf(map.get("date"));
         System.out.println(map.get("date"));
-        List<Location> locations=locationService.getLocations(user.getId(),date);
+        List<Location> locations=locationService.getLocations(uid,date);
 
         return locations;
     }
 
     @GetMapping(value = "/locations/map")
     public List<Location> GetMaplocations(NativeWebRequest webRequest, @RequestBody HashMap<String,String> map) throws Exception {
-        User user=(User)webRequest.getAttribute("user", SCOPE_REQUEST);
+        String uid=webRequest.getAttribute("user_id", SCOPE_REQUEST).toString();
 
         Timestamp date=Timestamp.valueOf(map.get("date"));
         System.out.println(map.get("date"));
-        List<Location> locations=locationService.navigation(user.getId(),date);
+        List<Location> locations=locationService.navigation(uid,date);
 
         return locations;
     }

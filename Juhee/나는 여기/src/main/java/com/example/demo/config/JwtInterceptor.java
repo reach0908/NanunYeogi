@@ -25,9 +25,9 @@ public class JwtInterceptor implements HandlerInterceptor {
         else{
             String token=request.getHeader("jwt-auth-token");
             if(token!=null&&token.length()>0){
-                User user=jwtService.checkValid(token);
-                System.out.println("유저정보 "+user.getId());
-                request.setAttribute("user",user);
+                String uid=jwtService.checkValid(token);
+                System.out.println("유저정보 "+uid);
+                request.setAttribute("user_id",uid);
                 System.out.println("토큰 사용가능 : "+token);
                 return true;
 

@@ -27,7 +27,7 @@ public interface LocationRepository extends JpaRepository<Location,Integer> {
     public List<Location> getLocationsByCreated_atBetween(Date date);
 
     @Query(value = "select * from location " +
-            "where user_id=?1 and created_at between date_format(date_add(?2,interval -2 day),'%Y-%m-%d') and date_format(date_add(?2,interval 3 day),'%Y-%m-%d') " +
+            "where user_id=?1 and created_at between date_format(?2,'%Y-%m-%d') and date_format(date_add(?2,interval 3 day),'%Y-%m-%d') " +
             "order by user_id"
             ,nativeQuery = true)
     public List<Location> getLocationsByUserIdAndCreated_atBetween(String uid,Date date);

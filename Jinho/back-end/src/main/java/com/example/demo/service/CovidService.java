@@ -178,10 +178,10 @@ public class CovidService {
 
 		// 4 params(to, from, type, text) are mandatory. must be filled
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("to", "01037256448");
+		params.put("to", phoneNum);
 		params.put("from", "01037256448");
 		params.put("type", "SMS");
-		params.put("text", "2020-07-08, 서울시 중랑구 상도동 상도로68길 12에서 감염가능성이 확인되었습니다. http://localhost:8080/kakao에서 확인하세요");
+		params.put("text", date+", "+address+"에서 감염가능성이 확인되었습니다. http://localhost:8080/kakao에서 확인하세요");
 		params.put("app_version", "나는여기"); // application name and version
 
 		try {

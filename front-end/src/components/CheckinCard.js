@@ -35,7 +35,7 @@ export default class CheckinCard extends Component {
                         />
                     </ul>
                     <h2>
-                        마이페이지
+                        내 이동경로 확인하기
             </h2>
                     <ul className='cards__items'>
                         <MyPageCard

@@ -12,12 +12,12 @@ export default class CovidState extends Component{
         labels :["1","2","3","4","5"],
         datasets:[
           {
-            label: "Video Mades",
+            label: "전국 전체확진자 수",
             backgroundColor: "rgba(255,0,255,0.75)",
             data: [4,5,1,10,32,2,12]
           },
           {
-            label: "Subscriptions",
+            label: "전국 신규확진자 수",
             backgroundColor: "rgba(0,255,0,0.75)",
             data: [14,15,21,0,12,4,2]
           }
@@ -50,7 +50,6 @@ export default class CovidState extends Component{
   render(){
     return(
       <div style={{position:"relative",width:800,height:750}}>
-        <h3>Chart Samples</h3>
         <Line
           options={{
             responsive: true,

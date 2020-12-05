@@ -1,12 +1,12 @@
 import React from 'react'
 import Footer from '../Footer'
-import PhoneRegisterForm from '../PhoneRegisterForm'
+import Form from '../Form'
 
 function PhoneRegister() {
 
     return (
         <div>
-            <PhoneRegisterForm></PhoneRegisterForm>
+            <Form></Form>
             <Footer></Footer>
         </div>
     )

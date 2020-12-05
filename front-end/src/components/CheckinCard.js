@@ -1,7 +1,7 @@
 
 import '../App.css'
 import './Cards.css';
-import CardItem from './CardItem'
+import QrCardItem from './QrCardItem'
 import naverImage from './images/naver.png'
 import kakaoImage from './images/kakao.jpg'
 import naverMap from './images/navermap.png'
@@ -21,13 +21,13 @@ export default class CheckinCard extends Component {
             <div className='cards__container'>
                 <div className='cards__wrapper'>
                     <ul className='cards__items'>
-                        <CardItem
+                        <QrCardItem
                             src={naverImage}
                             text='네이버 QR코드로 체크인하세요.'
                             label='Naver QR-CheckIN'
                             path='/gpslocation'
                         />
-                        <CardItem
+                        <QrCardItem
                             src={kakaoImage}
                             text='카카오 QR코드로 체크인하세요.'
                             label='Kakao QR-CheckIN'

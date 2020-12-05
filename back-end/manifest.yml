@@ -1,0 +1,59 @@
+{
+  "application_env_json": {
+    "VCAP_APPLICATION": {
+      "cf_api": "https://api.paas-ta.org",
+      "limits": {
+        "fds": 16384,
+        "mem": 1024,
+        "disk": 1024
+      },
+      "application_name": "NanunYeogi",
+      "application_uris": [
+          "NanunYeogi.paas-ta.org"
+      ],
+      "name": "NanunYeogi",
+      "space_name": "dev",
+      "space_id": "57304076-c1bc-4602-af3b-eb36377843ec",
+      "uris": [
+          "NanunYeogi.paas-ta.org"
+      ],
+      "users": null,
+      "application_id": "336533db-57a2-4579-993a-d55f3f10ed4e",
+      "version": "c47a80d6-47a4-4150-80fa-c6b1b5f5ab70",
+      "application_version": "c47a80d6-47a4-4150-80fa-c6b1b5f5ab70"
+    }
+  },
+  "environment_json": {
+    "JBP_CONFIG_OPEN_JDK_JRE": "{ jre: { version: 13.+ }}"
+  },
+  "running_env_json": {},
+  "staging_env_json": {},
+  "system_env_json": {
+    "VCAP_SERVICES": {
+      "Mysql-DB": [
+        {
+          "label": "Mysql-DB",
+          "provider": null,
+          "plan": "Mysql-Plan1-10con",
+          "name": "mysql",
+          "tags": [
+              "mysql",
+              "document"
+          ],
+          "instance_name": "mysql",
+          "binding_name": null,
+          "credentials": {
+            "hostname": "10.10.4.14",
+            "password": "2d1660a959c7f5c3",
+            "port": "3306",
+            "name": "op_93f7d410_f697_4798_8e4e_aee89bf6ebeb",
+            "uri": "mysql://750f8b28b369b329:2d1660a959c7f5c3@10.10.4.14:3306/op_93f7d410_f697_4798_8e4e_aee89bf6ebeb",
+            "username": "750f8b28b369b329"
+          },
+          "syslog_drain_url": null,
+          "volume_mounts": []
+        }
+      ]
+    }
+  }
+}

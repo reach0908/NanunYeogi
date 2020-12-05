@@ -8,7 +8,8 @@ import SelfCheck from './components/pages/SelfCheck';
 import SignUp from './components/pages/SignUp';
 import Login from './components/pages/Login';
 import QrCheckIn from './components/pages/QrCheckIn';
-import AboutUs from './components/pages/AboutUs'
+import AboutUs from './components/pages/AboutUs';
+import Today from './components/pages/Today';
 
 function App() {
   
@@ -18,12 +19,14 @@ function App() {
         <Navbar />
         <Switch>
           <Route path='/' exact component={Home} />
+          <Route path='/today' component={Today} />
           <Route path='/mypage' component={MyPage} />
           <Route path='/qrcheckin' component={QrCheckIn} />
           <Route path='/selfcheck' component={SelfCheck} />
           <Route path='/sign-up' component={SignUp} />
           <Route path='/login' component={Login} />
           <Route path='/aboutus' component={AboutUs} />
+          
         </Switch>
       </Router>
     </>

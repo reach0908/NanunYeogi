@@ -35,6 +35,11 @@ function Navbar() {
                    <i className={click ? 'fas fa-times' : 'fas fa-bars'}></i>
                    </div>
                    <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+                        <li className='nav-item'>
+                        <Link to='/today' className='nav-links' onClick={closeMobileMenu}>
+                               Today
+                        </Link>
+                        </li>
                        <li className='nav-item'>
                         <Link to='/qrcheckin' className='nav-links' onClick={closeMobileMenu}>
                             QR Check-in

@@ -121,7 +121,7 @@ public class LoginController {
     public RedirectView ncallback(@RequestParam("code") String code,@RequestParam("state") String state,HttpServletResponse res) throws ParseException, UnsupportedEncodingException {
 
         String social="naver";
-        String url="http://localhost:3000/qrcheckin?token=";
+        String url="http://localhost:3000/qrcheckin?id=";
         RedirectView redirectView = new RedirectView();
             HashMap<String,Object> token_map=naverService.getToken(code,state);
 

@@ -1,8 +1,7 @@
 import React, { useState, useEffect,Component } from 'react';
 import {Line} from 'react-chartjs-2';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import '../Cards.css';
+import './Cards.css';
 import Table from '@material-ui/core/Table';
 import TableRow from '@material-ui/core/TableRow';
 import TableHead from '@material-ui/core/TableHead';

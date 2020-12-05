@@ -11,7 +11,6 @@ const Form = () => {
         <div className='form-content-left'>
           <img className='form-img' src={appLogo} alt='spaceship' />
         </div>
-            {/* <img className='form-img-2' src={appLogo} alt='spaceship' /> */}
           <GPSRegisterForm/>
       </div>
     </>

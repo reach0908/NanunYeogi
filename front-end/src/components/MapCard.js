@@ -39,14 +39,6 @@ class GetMyLocations extends Component{
   componentDidMount() {
     this.loadLocations();
   }
-
-  // getStartLat(){
-  //   return this.state.locationList[0].latitude;
-  // }
-  // getStartLng(){
-  //   return this.state.locationList[0].longitude;
-  // }
-
   render() {
     
     const loca = this.state.locationList;

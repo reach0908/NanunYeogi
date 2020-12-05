@@ -62,9 +62,9 @@ class GetMyPaths extends Component {
                 <div>
                   <Polyline
                     path={loca}
-                    strokeColor={'#f04da8'}
-                    strokeOpacity={0.7}
-                    strokeWeight={5}
+                    strokeColor={'#0080FF'}
+                    strokeOpacity={1}
+                    strokeWeight={7}
                   />
                 </div>
             </NaverMap>

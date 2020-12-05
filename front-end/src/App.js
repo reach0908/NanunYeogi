@@ -11,7 +11,6 @@ import QrCheckIn from './components/pages/QrCheckIn';
 import AboutUs from './components/pages/AboutUs'
 import PhoneRegister from './components/pages/PhoneRegister'
 import GPSLocation from './components/pages/GPSLocation';
-import Today from './components/pages/Today';
 
 function App() {
 
@@ -30,7 +29,6 @@ function App() {
           <Route path='/gpslocation' component={GPSLocation} />
           <Route path='/phoneregister' component={PhoneRegister}/>
           <Route path='/getlocations' component={MyPage}/>
-          <Route path='/today' component={Today} />
         </Switch>
       </Router>
     </>

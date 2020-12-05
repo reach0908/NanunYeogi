@@ -26,10 +26,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class CovidService {
@@ -44,13 +42,19 @@ public class CovidService {
     UserRepository userRepository;
 
     public String data_api() throws Exception {
+        Calendar cal = Calendar.getInstance();
+        Date today=new Date();
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("YYYYMMdd");
+        cal.setTime(today);
+        cal.add(Calendar.DATE,-1);
+
         String serviceKey = "tufyZ6VLBILq5TuIblvCdAMD2fFepYFp29pal5%2BESdXrpluiCGBGv4ucJzMHTEKc%2FTQvdZDrlv1lILc8s8H88g%3D%3D";
         StringBuilder urlBuilder = new StringBuilder("http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson"); /*URL*/
         urlBuilder.append("?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + serviceKey); /*Service Key*/
         urlBuilder.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지번호*/
         urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
-        urlBuilder.append("&" + URLEncoder.encode("startCreateDt", "UTF-8") + "=" + URLEncoder.encode("20200410", "UTF-8")); /*검색할 생성일 범위의 시작*/
-        urlBuilder.append("&" + URLEncoder.encode("endCreateDt", "UTF-8") + "=" + URLEncoder.encode("20200410", "UTF-8")); /*검색할 생성일 범위의 종료*/
+        urlBuilder.append("&" + URLEncoder.encode("startCreateDt", "UTF-8") + "=" + URLEncoder.encode(simpleDateFormat.format(cal.getTime()), "UTF-8")); /*검색할 생성일 범위의 시작*/
+        urlBuilder.append("&" + URLEncoder.encode("endCreateDt", "UTF-8") + "=" + URLEncoder.encode(simpleDateFormat.format(today), "UTF-8")); /*검색할 생성일 범위의 종료*/
         URL url = new URL(urlBuilder.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
@@ -82,7 +86,9 @@ public class CovidService {
     public void AlertCovid(int cid, HashMap<String, String> map) {
 
 //        SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Timestamp date = new Timestamp(new Date(map.get("date")).getTime());
+
+        Timestamp date=Timestamp.valueOf(map.get("date"));
+        System.out.println(map.get("date"));
 //        try {
 //            date = fm.parse(map.get("Date"));
 //        } catch (ParseException e) {
@@ -90,7 +96,7 @@ public class CovidService {
 //            e.printStackTrace();
 //        }
         // -2~2일간 확진자 이동경로
-        List<Covid> covoidList = covidRepository.getCovidByCovidIdAndCreated_atBetween(cid,new Timestamp(date.getTime()));
+        List<Covid> covoidList = covidRepository.getCovidByCovid_numAndCreated_atBetween(cid,new Timestamp(date.getTime()));
 
         List<String> alertUser = new ArrayList<>();
 

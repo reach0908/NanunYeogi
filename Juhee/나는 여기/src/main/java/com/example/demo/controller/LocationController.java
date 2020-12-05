@@ -19,7 +19,7 @@ import java.util.*;
 
 import static org.springframework.web.context.request.RequestAttributes.SCOPE_REQUEST;
 
-@Controller
+@RestController
 public class LocationController {
 
     @Autowired
@@ -35,24 +35,25 @@ public class LocationController {
 
     // 이동경로
     @GetMapping(value = "/locations")
-    public List<Location> GetLocations(NativeWebRequest webRequest, @RequestBody HashMap<String,String> map)
+    public List<Location> GetLocations(NativeWebRequest webRequest,@RequestParam(name = "date") String temp)
     {
-        String uid=webRequest.getAttribute("user_id", SCOPE_REQUEST).toString();
-
-        Timestamp date=Timestamp.valueOf(map.get("date"));
-        System.out.println(map.get("date"));
-        List<Location> locations=locationService.getLocations(uid,date);
+//        String uid=webRequest.getAttribute("user_id", SCOPE_REQUEST).toString();
+        Timestamp date=Timestamp.valueOf(temp);
+        System.out.println(date);
+        List<Location> locations=locationService.getLocations("1549944379",date);
 
         return locations;
     }
 
     @GetMapping(value = "/locations/map")
-    public List<Location> GetMaplocations(NativeWebRequest webRequest, @RequestBody HashMap<String,String> map) throws Exception {
-        String uid=webRequest.getAttribute("user_id", SCOPE_REQUEST).toString();
+    public List<Location> GetMaplocations(NativeWebRequest webRequest, @RequestParam(name = "date") String temp) throws Exception {
+//        String uid=webRequest.getAttribute("user_id", SCOPE_REQUEST).toString();
 
-        Timestamp date=Timestamp.valueOf(map.get("date"));
-        System.out.println(map.get("date"));
-        List<Location> locations=locationService.navigation(uid,date);
+        Timestamp date=Timestamp.valueOf(temp);
+        List<Location> locations=locationService.navigation("1549944379",date);
+
+        if(locations.size()==0)
+            return new ArrayList<>();
 
         return locations;
     }

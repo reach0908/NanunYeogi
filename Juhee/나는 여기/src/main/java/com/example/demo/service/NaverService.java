@@ -19,7 +19,7 @@ public class NaverService {
 
         String clientId = "NpWqZIHItQqZii0GRios";//애플리케이션 클라이언트 아이디값";
         String clientSecret = "fz2LjDvQxq";//애플리케이션 클라이언트 시크릿값";
-        String redirectURI = URLEncoder.encode("http://localhost:8080/ncallback", "UTF-8");
+        String redirectURI = URLEncoder.encode("http://nanunyeogi.paas-ta.org/ncallback", "UTF-8");
         String apiURL;
         apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
         apiURL += "client_id=" + clientId;

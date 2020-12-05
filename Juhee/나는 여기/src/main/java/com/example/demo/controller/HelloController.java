@@ -13,7 +13,7 @@ public class HelloController {
         return "hi";
     }
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String Login()
     {
         return "Login";

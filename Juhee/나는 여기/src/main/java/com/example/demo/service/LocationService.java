@@ -37,7 +37,8 @@ public class LocationService {
 
     @Autowired
     private UserRepository userRepository;
-
+    double d=1.0;
+    String s=String.valueOf(d);
     public void setLocation(String uid,HashMap<String,String> map)
     {
         double latitude=Double.parseDouble(map.get("latitude"));
@@ -63,6 +64,8 @@ public class LocationService {
     public List<Location> navigation(String uid, Timestamp date) throws Exception {
         List <Location> locations=locationRepository.getLocationsByUserIdAndCreated_atEquals(uid,date);
 
+        if(locations.size()==0)
+            return new ArrayList<>();
         Double lat_src=locations.get(0).getLatitude();
         Double lng_src=locations.get(0).getLongitude();
         String way_point="";

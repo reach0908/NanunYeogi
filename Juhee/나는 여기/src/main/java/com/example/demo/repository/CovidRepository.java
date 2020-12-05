@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface CovidRepository extends JpaRepository<Covid,Integer> {
 
-    @Query(value = "select * from covid where covid_id= ?1 and created_at between date_format(date_add(?2,interval -2 day),'%Y-%m-%d') and date_format(date_add(:Date,interval 3 day),'%Y-%m-%d')"
+    @Query(value = "select * from covid where covid_num= ?1 and created_at between date_format(date_add(?2,interval -2 day),'%Y-%m-%d') and date_format(date_add(?2,interval 3 day),'%Y-%m-%d')"
             ,nativeQuery = true)
-    public List<Covid> getCovidByCovidIdAndCreated_atBetween(int covid_id,Timestamp created_at);
+    public List<Covid> getCovidByCovid_numAndCreated_atBetween(int covid_num,Timestamp created_at);
 }

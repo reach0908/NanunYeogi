@@ -10,7 +10,7 @@ function Home (){
     return(
         <>
             <MapSlider></MapSlider>
-            <Today></Today>
+            {/* <Today></Today> */}
             <Footer></Footer>
         </>
     );

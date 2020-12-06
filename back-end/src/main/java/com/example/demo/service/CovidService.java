@@ -85,31 +85,17 @@ public class CovidService {
 
     public void AlertCovid(int cid, HashMap<String, String> map) {
 
-//        SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
         Timestamp date=Timestamp.valueOf(map.get("date"));
         System.out.println(map.get("date"));
-//        try {
-//            date = fm.parse(map.get("Date"));
-//        } catch (ParseException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-        // -2~2일간 확진자 이동경로
         List<Covid> covoidList = covidRepository.getCovidByCovid_numAndCreated_atBetween(cid,new Timestamp(date.getTime()));
 
         List<String> alertUser = new ArrayList<>();
 
-        // 모든 회원 목록
         List<User> totalUser = userRepository.findAll();
 
         boolean checked = false;
         for (int i = 0; i < covoidList.size(); i++) {
             Covid covid = covoidList.get(i);
-
-            // 테스트 용 로그
-//		System.out.println("확진자 하나 가져옴");
-//		System.out.println(covid);
 
             for (int j = 0; j < totalUser.size(); j++) {
                 checked = false;
@@ -120,18 +106,10 @@ public class CovidService {
                     }
                 }
                 if (!checked) {
-                    // 모든 회원 목록에서 하나를 가져와확진자 이동날짜에 이동한 회원의 이동 경로
                     List<Location> user_locList = locationRepository
                             .getLocationsByUserIdAndCreated_atBetween(totalUser.get(j).getId(), covid.getCreated_at());
-
-                    // 해당 하는 유저 목록 없으면 실행 안함
                     if (!user_locList.isEmpty()) {
-
-                        // 유저 이동경로따라 확진자와 겹치는 부분 확인
                         for (int k = 0; k < user_locList.size(); k++) {
-                            // 거리 비교 6피트 = 1.8288m
-//						System.out.println("가능성 체크 시작");
-
                             double covidLatitude = Math.round(covid.getLatitude() * 100000) / 100000.0;
                             double covidLongtitude = Math.round(covid.getLongitude() * 100000) / 100000.0;
 
@@ -141,23 +119,14 @@ public class CovidService {
                             double dis = distance(covidLatitude, covidLongtitude, userLatitude, userLongtitude);
 
                             System.out.println("거리:" + dis);
-                            if (dis <= 100) { // 겹치는 부분이 있을 경우
-                                alertUser.add(user_locList.get(k).getUser().getId());// 메세지 보낸 유저목록에 포함
-                                // 문자 발송
+                            if (dis <= 100) {
+                                alertUser.add(user_locList.get(k).getUser().getId());
+
                                 sendMessage(totalUser.get(j).getPhone(),
                                         user_locList.get(k).getCreated_at().toString(),
                                         getAddress(Double.toString(user_locList.get(k).getLatitude()),
                                                 Double.toString(user_locList.get(k).getLongitude())));
-                                // TEST console 출력
-                                /*
-                                 * System.out.println(totalUser.get(j).getPhoneNum() + "(으)로 전송\n" +
-                                 * user_locList.get(k).getCreated_at().toString() + " " +
-                                 * getAddress(Double.toString(user_locList.get(k).getLatitude()),
-                                 * Double.toString(user_locList.get(k).getLongitude())) +
-                                 * "에서 감염가능성이 확인 되었습니다.");
-                                 */
-
-                                k = user_locList.size();// 해당 유저에 대한 경로 탐색 종료
+                                k = user_locList.size();
                             }
                         }
                     }
@@ -193,13 +162,6 @@ public class CovidService {
             System.out.println(e.getCode());
         }
     }
-//?????????????????????????????????????????????????????????
-//	public User getUser(String uid) {
-//		String phoneNum;
-//		User user = new User();
-//		return user = userRepository.getUserById(uid);
-//
-//	}
 
     public String getAddress(String lat, String lon) {
 

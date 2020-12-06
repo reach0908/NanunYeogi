@@ -11,7 +11,6 @@ import QrCheckIn from './components/pages/QrCheckIn';
 import AboutUs from './components/pages/AboutUs'
 import PhoneRegister from './components/pages/PhoneRegister'
 import GPSLocation from './components/pages/GPSLocation';
-
 function App() {
 
   return (

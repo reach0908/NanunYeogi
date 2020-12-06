@@ -85,22 +85,13 @@ public class LoginController {
             return redirectView;
         }
 
-//        String jwt_token=jwtService.create(user);
-//        res.setHeader("jwt-auth-token",jwt_token);
-
-//        resultMap.put("status",true);
-//        resultMap.put("user",user);
-        //resultMap.put("locations",locationService.getLocations(loginUser.getId(),new Timestamp(new Date().getTime())));
-
         status=HttpStatus.ACCEPTED;
-//        return new ResponseEntity<Map<String,Object>>(resultMap,status);
 
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl(url+id);
-//        redirectView.set
 
         return redirectView;
-//        return "redirect:http://localhost:3000/qrcheckin/" + access_Token;
+
     }
 
     @RequestMapping(value="/logout")

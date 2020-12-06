@@ -27,34 +27,32 @@ public class LocationController {
 
     // 위치 추가
     @PostMapping("/setlocations/{id}")
-    public void StoreLocation(@PathVariable String id, @RequestBody HashMap<String,String> map)
-    {
+    public void StoreLocation(@PathVariable String id, @RequestBody HashMap<String, String> map) {
         System.out.println(id);
         System.out.println(map);
-        locationService.setLocation(id,map);
+        locationService.setLocation(id, map);
     }
 
     // 이동경로
     @GetMapping(value = "/getlocations/{id}")
-    public List<Location> GetLocations(@PathVariable String id, @RequestParam(name = "date") String temp) throws Exception
-    {
+    public List<Location> GetLocations(@PathVariable String id, @RequestParam(name = "date") String temp) throws Exception {
 //        String uid=webRequest.getAttribute("user_id", SCOPE_REQUEST).toString();
-        Timestamp date=Timestamp.valueOf(temp);
-        List<Location> locations=locationService.getLocations(id,date);
+        Timestamp date = Timestamp.valueOf(temp);
+        List<Location> locations = locationService.getLocations(id, date);
         System.out.println("getLocation : " + locations);
         return locations;
     }
 
     @GetMapping(value = "/getpaths/{id}")
-    public List<HashMap<String,String>> GetPaths(@PathVariable String id, @RequestParam(name="date") String temp) throws Exception {
+    public List<HashMap<String, String>> GetPaths(@PathVariable String id, @RequestParam(name = "date") String temp) throws Exception {
         Timestamp date = Timestamp.valueOf(temp);
-        List<Location> marker = locationService.navigation(id,date);
-        List<HashMap<String,String>> paths = new LinkedList<>();
-        for(int i=0;i<marker.size();i++){
+        List<Location> marker = locationService.navigation(id, date);
+        List<HashMap<String, String>> paths = new LinkedList<>();
+        for (int i = 0; i < marker.size(); i++) {
             Double lat = marker.get(i).getLatitude();
             Double lng = marker.get(i).getLongitude();
-            HashMap<String,String> path = new HashMap<>();
-            path.put("lat",lat.toString());
+            HashMap<String, String> path = new HashMap<>();
+            path.put("lat", lat.toString());
             path.put("lng", lng.toString());
             paths.add(path);
 
@@ -63,7 +61,6 @@ public class LocationController {
         System.out.println("getPaths : " + paths);
         return paths;
     }
-
 
 
 }

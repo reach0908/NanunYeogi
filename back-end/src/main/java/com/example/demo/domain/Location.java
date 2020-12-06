@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable=false)
+    @Column(updatable = false)
     private int id;
 
     @ManyToOne
@@ -32,7 +32,6 @@ public class Location {
 
     @Column
     private Timestamp created_at;
-
 
 
 }

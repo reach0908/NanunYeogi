@@ -28,24 +28,22 @@ public class UserController {
 //    }
 
     @GetMapping("/users")
-    public List<User> getallUsers(NativeWebRequest webRequest)
-    {
-        String uid=webRequest.getAttribute("user_id", SCOPE_REQUEST).toString();
+    public List<User> getallUsers(NativeWebRequest webRequest) {
+        String uid = webRequest.getAttribute("user_id", SCOPE_REQUEST).toString();
 
-        System.out.println("getUserId "+uid);
-        List <User> users=userService.AllUsers();
+        System.out.println("getUserId " + uid);
+        List<User> users = userService.AllUsers();
         return users;
     }
 
     @PostMapping("/phoneregister/{id}")
-    public void updatePhone(@PathVariable String id,@RequestBody HashMap<String,String> map)
-    {
-        String Phone=map.get("phoneNumber");
+    public void updatePhone(@PathVariable String id, @RequestBody HashMap<String, String> map) {
+        String Phone = map.get("phoneNumber");
 
         System.out.println("user id : " + id);
         System.out.println("phoneNumber : " + Phone);
 
-        User user=userService.updatePhone(id,Phone);
+        User user = userService.updatePhone(id, Phone);
     }
 
 

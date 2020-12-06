@@ -8,14 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HelloController {
 
     @GetMapping("hello")
-    public String hello()
-    {
+    public String hello() {
         return "hi";
     }
 
     @GetMapping("/")
-    public String Login()
-    {
+    public String Login() {
         return "Login";
     }
 

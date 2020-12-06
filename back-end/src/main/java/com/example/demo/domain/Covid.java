@@ -16,7 +16,7 @@ import java.util.List;
 public class Covid {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable=false)
+    @Column(updatable = false)
     private int id;
 
     @Column

@@ -43,10 +43,10 @@ public class CovidService {
 
     public String data_api() throws Exception {
         Calendar cal = Calendar.getInstance();
-        Date today=new Date();
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("YYYYMMdd");
+        Date today = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYYMMdd");
         cal.setTime(today);
-        cal.add(Calendar.DATE,-1);
+        cal.add(Calendar.DATE, -1);
 
         String serviceKey = "tufyZ6VLBILq5TuIblvCdAMD2fFepYFp29pal5%2BESdXrpluiCGBGv4ucJzMHTEKc%2FTQvdZDrlv1lILc8s8H88g%3D%3D";
         StringBuilder urlBuilder = new StringBuilder("http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson"); /*URL*/
@@ -85,9 +85,9 @@ public class CovidService {
 
     public void AlertCovid(int cid, HashMap<String, String> map) {
 
-        Timestamp date=Timestamp.valueOf(map.get("date"));
+        Timestamp date = Timestamp.valueOf(map.get("date"));
         System.out.println(map.get("date"));
-        List<Covid> covoidList = covidRepository.getCovidByCovid_numAndCreated_atBetween(cid,new Timestamp(date.getTime()));
+        List<Covid> covoidList = covidRepository.getCovidByCovid_numAndCreated_atBetween(cid, new Timestamp(date.getTime()));
 
         List<String> alertUser = new ArrayList<>();
 
@@ -155,7 +155,7 @@ public class CovidService {
         params.put("app_version", "나는여기"); // application name and version
 
         try {
-            org.json.simple.JSONObject obj = (org.json.simple.JSONObject)coolsms.send(params);
+            org.json.simple.JSONObject obj = (org.json.simple.JSONObject) coolsms.send(params);
             System.out.println(obj.toString());
         } catch (CoolsmsException e) {
             System.out.println(e.getMessage());
@@ -227,9 +227,8 @@ public class CovidService {
         return (rad * 180 / Math.PI);
     }
 
-    public List<Covid> getCovidLocations(Timestamp date)
-    {
-        List<Covid> locations=covidRepository.getLocationsByCreated_atEquals(date);
+    public List<Covid> getCovidLocations(Timestamp date) {
+        List<Covid> locations = covidRepository.getLocationsByCreated_atEquals(date);
         System.out.println(locations.toString());
         return locations;
     }

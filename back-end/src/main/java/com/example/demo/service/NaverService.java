@@ -15,7 +15,7 @@ import java.util.Map;
 @Service
 public class NaverService {
 
-    public HashMap<String, Object> getToken(String code,String state) throws UnsupportedEncodingException {
+    public HashMap<String, Object> getToken(String code, String state) throws UnsupportedEncodingException {
 
         String clientId = "NpWqZIHItQqZii0GRios";//애플리케이션 클라이언트 아이디값";
         String clientSecret = "fz2LjDvQxq";//애플리케이션 클라이언트 시크릿값";
@@ -29,17 +29,17 @@ public class NaverService {
         apiURL += "&state=" + state;
         String access_token = "";
         String refresh_token = "";
-        System.out.println("apiURL="+apiURL);
-        HashMap<String,Object> map=new HashMap<>();
-        boolean status=false;
+        System.out.println("apiURL=" + apiURL);
+        HashMap<String, Object> map = new HashMap<>();
+        boolean status = false;
         try {
             URL url = new URL(apiURL);
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             int responseCode = con.getResponseCode();
             BufferedReader br;
-            System.out.print("responseCode="+responseCode);
-            if(responseCode==200) { // 정상 호출
+            System.out.print("responseCode=" + responseCode);
+            if (responseCode == 200) { // 정상 호출
                 br = new BufferedReader(new InputStreamReader(con.getInputStream()));
             } else {  // 에러 발생
                 br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
@@ -50,17 +50,17 @@ public class NaverService {
                 res.append(inputLine);
             }
             br.close();
-            if(responseCode==200) {
+            if (responseCode == 200) {
                 System.out.println(res.toString());
-                map.put("status",true);
-                map.put("res",res);
+                map.put("status", true);
+                map.put("res", res);
                 return map;
                 //session.setAttribute("token",con.getResponseMessage() );
             }
         } catch (Exception e) {
             System.out.println(e);
         }
-        map.put("status",false);
+        map.put("status", false);
         return map;
     }
 
@@ -72,17 +72,17 @@ public class NaverService {
 
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("Authorization", header);
-        String responseBody = get(apiURL,requestHeaders);
+        String responseBody = get(apiURL, requestHeaders);
 
         System.out.println(responseBody);
         return responseBody;
     }
 
-    private static String get(String apiUrl, Map<String, String> requestHeaders){
+    private static String get(String apiUrl, Map<String, String> requestHeaders) {
         HttpURLConnection con = connect(apiUrl);
         try {
             con.setRequestMethod("GET");
-            for(Map.Entry<String, String> header :requestHeaders.entrySet()) {
+            for (Map.Entry<String, String> header : requestHeaders.entrySet()) {
                 con.setRequestProperty(header.getKey(), header.getValue());
             }
 
@@ -100,10 +100,10 @@ public class NaverService {
         }
     }
 
-    private static HttpURLConnection connect(String apiUrl){
+    private static HttpURLConnection connect(String apiUrl) {
         try {
             URL url = new URL(apiUrl);
-            return (HttpURLConnection)url.openConnection();
+            return (HttpURLConnection) url.openConnection();
         } catch (MalformedURLException e) {
             throw new RuntimeException("API URL이 잘못되었습니다. : " + apiUrl, e);
         } catch (IOException e) {
@@ -111,10 +111,10 @@ public class NaverService {
         }
     }
 
-    private static String readBody(InputStream body){
+    private static String readBody(InputStream body) {
 //        InputStreamReader streamReader = new InputStreamReader(body);
 
-        try (BufferedReader lineReader = new BufferedReader(new InputStreamReader(body,"utf-8"))) {
+        try (BufferedReader lineReader = new BufferedReader(new InputStreamReader(body, "utf-8"))) {
             StringBuilder responseBody = new StringBuilder();
 
             String line;

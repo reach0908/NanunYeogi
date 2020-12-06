@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <title>간단한 지도 표시하기</title>
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=xvsfsadfsdaf"></script>
+    <script type="text/javascript"
+            src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=xvsfsadfsdaf"></script>
 </head>
 
 <div id="wrap" class="section">
@@ -81,7 +83,7 @@
 
     // 배열 마지막 위치를 마크로 표시함
     var marker = new naver.maps.Marker({
-        position: polylinePath[polylinePath.length-1], //마크 표시할 위치 배열의 마지막 위치
+        position: polylinePath[polylinePath.length - 1], //마크 표시할 위치 배열의 마지막 위치
         map: map
     });
 </script>

@@ -26,8 +26,8 @@
   "environment_json": {
     "JBP_CONFIG_OPEN_JDK_JRE": "{ jre: { version: 13.+ }}"
   },
-  "running_env_json": {},
-  "staging_env_json": {},
+  "running_env_json": { },
+  "staging_env_json": { },
   "system_env_json": {
     "VCAP_SERVICES": {
       "Mysql-DB": [
@@ -51,7 +51,7 @@
             "username": "750f8b28b369b329"
           },
           "syslog_drain_url": null,
-          "volume_mounts": []
+          "volume_mounts": [ ]
         }
       ]
     }

@@ -37,14 +37,14 @@ public class LocationService {
 
     @Autowired
     private UserRepository userRepository;
-    double d=1.0;
-    String s=String.valueOf(d);
-    public void setLocation(String uid,HashMap<String,String> map)
-    {
-        double latitude=Double.parseDouble(map.get("latitude"));
-        double longitude=Double.parseDouble(map.get("longitude"));
+    double d = 1.0;
+    String s = String.valueOf(d);
 
-        Location location=new Location();
+    public void setLocation(String uid, HashMap<String, String> map) {
+        double latitude = Double.parseDouble(map.get("latitude"));
+        double longitude = Double.parseDouble(map.get("longitude"));
+
+        Location location = new Location();
         location.setUser(userRepository.getOne(uid));
         location.setLatitude(latitude);
         location.setLongitude(longitude);
@@ -53,54 +53,53 @@ public class LocationService {
         locationRepository.save(location);
     }
 
-    public List<Location> getLocations(String uid, Timestamp date)
-    {
-        List<Location> locations=locationRepository.getLocationsByUserIdAndCreated_atEquals(uid,date);
+    public List<Location> getLocations(String uid, Timestamp date) {
+        List<Location> locations = locationRepository.getLocationsByUserIdAndCreated_atEquals(uid, date);
 
         System.out.println(locations.toString());
         return locations;
     }
 
     public List<Location> navigation(String uid, Timestamp date) throws Exception {
-        List <Location> locations=locationRepository.getLocationsByUserIdAndCreated_atEquals(uid,date);
+        List<Location> locations = locationRepository.getLocationsByUserIdAndCreated_atEquals(uid, date);
 
-        if(locations.size()==0)
+        if (locations.size() == 0)
             return new ArrayList<>();
-        Double lat_src=locations.get(0).getLatitude();
-        Double lng_src=locations.get(0).getLongitude();
-        String way_point="";
+        Double lat_src = locations.get(0).getLatitude();
+        Double lng_src = locations.get(0).getLongitude();
+        String way_point = "";
 
-        for (int i=1;i<locations.size()-1;i++){
+        for (int i = 1; i < locations.size() - 1; i++) {
             Double lat = locations.get(i).getLatitude();
             Double lng = locations.get(i).getLongitude();
             way_point += lng.toString();
             way_point += ",";
             way_point += lat.toString();
-            if(i!=locations.size()-2){
+            if (i != locations.size() - 2) {
                 way_point += ":";
             }
         }
 
-        Double lat_dest = locations.get(locations.size()-1).getLatitude();
-        Double lng_dest = locations.get(locations.size()-1).getLongitude();
+        Double lat_dest = locations.get(locations.size() - 1).getLatitude();
+        Double lng_dest = locations.get(locations.size() - 1).getLongitude();
 
-        List<Location> path_arr=sendGet("https://naveropenapi.apigw.ntruss.com/map-direction/v1/driving?start="
-                + lng_src + "," + lat_src + "&waypoints=" + way_point +"&goal=" + lng_dest + "," + lat_dest + "&option=trafast");
+        List<Location> path_arr = sendGet("https://naveropenapi.apigw.ntruss.com/map-direction/v1/driving?start="
+                + lng_src + "," + lat_src + "&waypoints=" + way_point + "&goal=" + lng_dest + "," + lat_dest + "&option=trafast");
 
         return path_arr;
     }
 
     //directions 이용하기
-    public List<Location> sendGet(String targetURL) throws Exception{
+    public List<Location> sendGet(String targetURL) throws Exception {
 
         URL url = new URL(targetURL);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET"); // optional default is GET
-        con.setRequestProperty("X-NCP-APIGW-API-KEY-ID",CLIENT_ID);// 헤더 추가.
-        con.setRequestProperty("X-NCP-APIGW-API-KEY",CLIENT_SECRET);
+        con.setRequestProperty("X-NCP-APIGW-API-KEY-ID", CLIENT_ID);// 헤더 추가.
+        con.setRequestProperty("X-NCP-APIGW-API-KEY", CLIENT_SECRET);
 
         // int responseCode = con.getResponseCode();
-        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(),"utf-8"));
+        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
         String inputLine;
         StringBuffer response = new StringBuffer();
 
@@ -126,12 +125,12 @@ public class LocationService {
         List<Location> locationList = new ArrayList<>();
         List<String> path_list = new ArrayList<>();
         for (int i = 0; i < arr_path.length; i++) {
-            Location temp=new Location();
+            Location temp = new Location();
 
             String lat;
             String lng;
             String path[] = arr_path[i].toString().split(",");
-            lat = path[1].substring(0, path[1].length()-1);
+            lat = path[1].substring(0, path[1].length() - 1);
             lng = path[0].substring(1, path[0].length());
 
             temp.setLatitude(Double.parseDouble(lat));

@@ -15,9 +15,8 @@ public class UserService {
     private UserRepository userRepository;
 
 
-    public User setUser(HashMap<String,String> map)
-    {
-        User user=new User();
+    public User setUser(HashMap<String, String> map) {
+        User user = new User();
 
         user.setId(map.get("id"));
         user.setEmail(map.get("email"));
@@ -28,31 +27,27 @@ public class UserService {
         return user;
     }
 
-    public User signin(HashMap<String,String> map)
-    {
-        User user=userRepository.getUserById(map.get("id"));
+    public User signin(HashMap<String, String> map) {
+        User user = userRepository.getUserById(map.get("id"));
 //        System.out.println("user"+user.toString());
 
-        if(user==null)
-        {
-            user=userRepository.getUserByEmail(map.get("email"));
-            if(user==null)
-                user=setUser(map);
+        if (user == null) {
+            user = userRepository.getUserByEmail(map.get("email"));
+            if (user == null)
+                user = setUser(map);
         }
 
         return user;
     }
 
-    public List<User> AllUsers()
-    {
-        List <User> users=userRepository.findAll();
+    public List<User> AllUsers() {
+        List<User> users = userRepository.findAll();
 
         return users;
     }
 
-    public User updatePhone(String uid,String Phone)
-    {
-        User user=userRepository.getUserById(uid);
+    public User updatePhone(String uid, String Phone) {
+        User user = userRepository.getUserById(uid);
         user.setPhone(Phone);
         userRepository.save(user);
 

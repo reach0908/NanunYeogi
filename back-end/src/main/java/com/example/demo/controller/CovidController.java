@@ -29,23 +29,21 @@ public class CovidController {
     private CovidService covidService;
 
     @PostMapping(value = "/covid/{cid}")
-    public void AlertCovid(@RequestParam int cid, @RequestBody HashMap<String,String> map)
-    {
+    public void AlertCovid(@RequestParam int cid, @RequestBody HashMap<String, String> map) {
 //        Date date=new Date(map.get("date"));
         // 비교후 메세지 전송
-        covidService.AlertCovid(cid,map);
+        covidService.AlertCovid(cid, map);
     }
 
     @GetMapping(value = "/covid")
-    public Object data_api()
-    {
+    public Object data_api() {
         try {
-            ObjectMapper objectMapper=new ObjectMapper();
-            String data=covidService.data_api();
-            System.out.println("controller "+ data);
-            System.out.println("controller "+objectMapper.convertValue(data,Object.class) );
+            ObjectMapper objectMapper = new ObjectMapper();
+            String data = covidService.data_api();
+            System.out.println("controller " + data);
+            System.out.println("controller " + objectMapper.convertValue(data, Object.class));
 
-            return objectMapper.convertValue(data,Object.class);
+            return objectMapper.convertValue(data, Object.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,10 +52,10 @@ public class CovidController {
     }
 
     @GetMapping("/getCovidLocations")
-    public List<Covid> GetCovidLocations (@RequestParam(name = "date") String temp) throws Exception{
-        Timestamp date=Timestamp.valueOf(temp);
+    public List<Covid> GetCovidLocations(@RequestParam(name = "date") String temp) throws Exception {
+        Timestamp date = Timestamp.valueOf(temp);
         List<Covid> locations = covidService.getCovidLocations(date);
-        System.out.println("covid locations : " +locations);
+        System.out.println("covid locations : " + locations);
         return locations;
     }
 

@@ -18,7 +18,7 @@ import com.google.gson.JsonParser;
 @Service
 public class KakaoService {
 
-    public HashMap<String, Object> getUserInfo (String access_Token) {
+    public HashMap<String, Object> getUserInfo(String access_Token) {
 
         //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
         HashMap<String, Object> userInfo = new HashMap<>();
@@ -49,12 +49,12 @@ public class KakaoService {
 
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-            String id=element.getAsJsonObject().get("id").getAsString();
+            String id = element.getAsJsonObject().get("id").getAsString();
 
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
 
-            userInfo.put("id",id);
+            userInfo.put("id", id);
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
 
@@ -67,7 +67,7 @@ public class KakaoService {
     }
 
 
-    public String getAccessToken (String authorize_code) {
+    public String getAccessToken(String authorize_code) {
         String access_Token = "";
         String refresh_Token = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -96,7 +96,7 @@ public class KakaoService {
             System.out.println("responseCode : " + responseCode);
 
             //    요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"utf-8"));
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
             String line = "";
             String result = "";
 

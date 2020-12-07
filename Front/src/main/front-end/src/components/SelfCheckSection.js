@@ -7,7 +7,7 @@ import './HeroSection.css';
 function SelfCheckSection() {
     return (
         <div className='self-container'>
-            <h1 className='title'>Self-Check</h1>
+            <h1 className='title'>Self-Check(개발중)</h1>
             <p>현재 코로나 거리두기 상태 : 2.5단계</p>
             <p>2주간 사용자 외출 횟수 : 24회</p>
             <p>일일 최대 시설 방문 횟수 : 5회</p>

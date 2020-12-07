@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
-import {HashRouter as Router, Switch, Route, HashRouter} from 'react-router-dom';
+import {HashRouter,BrowserRouter as Switch, Route} from 'react-router-dom';
 import Home from './components/pages/Home';
 import MyPage from './components/pages/MyPage';
 import SelfCheck from './components/pages/SelfCheck';

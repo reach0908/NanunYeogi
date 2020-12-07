@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import './App.css';
 import Navbar from './components/Navbar';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
@@ -8,8 +8,8 @@ import SelfCheck from './components/pages/SelfCheck';
 import SignUp from './components/pages/SignUp';
 import Login from './components/pages/Login';
 import QrCheckIn from './components/pages/QrCheckIn';
-import AboutUs from './components/pages/AboutUs';
-import PhoneRegister from './components/pages/PhoneRegister';
+import AboutUs from './components/pages/AboutUs'
+import PhoneRegister from './components/pages/PhoneRegister'
 import GPSLocation from './components/pages/GPSLocation';
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
                     <Route path='/login' component={Login}/>
                     <Route path='/aboutus' component={AboutUs}/>
                     <Route path='/gpslocation' component={GPSLocation}/>
-                    <Route path='/#phoneregister' component={PhoneRegister}/>
+                    <Route path='/phoneregister/' component={PhoneRegister}/>
                     <Route path='/getlocations' component={MyPage}/>
                 </Switch>
             </Router>

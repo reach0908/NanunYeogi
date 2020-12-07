@@ -85,8 +85,8 @@ public class KakaoService {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=a863152a6c9a88819b4482a0b970723a");
-//            sb.append("&redirect_uri=http://nanunyeogi.paas-ta.org/kcallback");
-            sb.append("&redirect_uri=http://localhost:8080/kcallback");
+//            sb.append("&redirect_uri=http://nanserver.paas-ta.org/kcallback");
+            sb.append("&redirect_uri=http://nanserver.paas-ta.org/kcallback");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();

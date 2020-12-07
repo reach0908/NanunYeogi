@@ -19,7 +19,7 @@ class GetMyLocations extends Component {
         const date = this.state.startDate;
         const dateTime = moment(date).format("YYYY-MM-DD HH:mm:ss");
         console.log(dateTime);
-        axios.get('http://localhost:8080/getlocations/' + window.localStorage.getItem("id"), {params: {date: dateTime}}).then((response) => {
+        axios.get('http://nanserver.paas-ta.org/getlocations/' + window.localStorage.getItem("id"), {params: {date: dateTime}}).then((response) => {
             this.setState(
                 {locationList: response.data}
             )

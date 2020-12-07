@@ -32,7 +32,7 @@ export default class PhoneRegisterForm extends Component {
 
         console.log(phone);
 
-        axios.post('http://localhost:8080/phoneregister/' + window.localStorage.getItem("id"), {phoneNumber: this.state.phoneNumber})
+        axios.post('http://nanserver.paas-ta.org/phoneregister/' + window.localStorage.getItem("id"), {phoneNumber: this.state.phoneNumber})
             .then((res) => {
                 window.location.href = '/qrcheckin';
             }).catch((err) => {

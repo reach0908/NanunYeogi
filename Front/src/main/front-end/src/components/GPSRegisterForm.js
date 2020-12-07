@@ -23,7 +23,7 @@ export default class PhoneRegisterForm extends Component {
     }
 
     handleSubmit() {
-        axios.post('http://localhost:8080/setlocations/' + window.localStorage.getItem("id"),
+        axios.post('http://nanserver.paas-ta.org/setlocations/' + window.localStorage.getItem("id"),
             {
                 latitude: window.localStorage.getItem("lat"),
                 longitude: window.localStorage.getItem("lng")

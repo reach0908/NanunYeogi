@@ -41,7 +41,7 @@ public class CovidController {
             ObjectMapper objectMapper = new ObjectMapper();
             String data = covidService.data_api();
             System.out.println("controller " + data);
-            System.out.println("controller " + objectMapper.convertValue(data, Object.class));
+            // System.out.println("controller " + objectMapper.convertValue(data, Object.class));
 
             return objectMapper.convertValue(data, Object.class);
         } catch (Exception e) {

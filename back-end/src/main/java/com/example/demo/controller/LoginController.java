@@ -56,7 +56,7 @@ public class LoginController {
         HashMap<String, String> map = new HashMap<>();
         String social = "kakao";
 
-        String url = "http://localhost:3000/qrcheckin?id=";
+        String url = "http://nanunyeogi.paas-ta.org/qrcheckin?id=";
 
         HashMap<String, Object> userInfo = kakaoService.getUserInfo(access_Token);
         System.out.println("login Controller : " + userInfo);
@@ -77,7 +77,7 @@ public class LoginController {
 
         User user = userService.signin(map);
         if (user.getPhone() == null) {
-            String registerUrl = "http://localhost:3000/phoneregister?id=";
+            String registerUrl = "http://nanunyeogi.paas-ta.org/phoneregister?id=";
             RedirectView redirectView = new RedirectView();
             redirectView.setUrl(registerUrl + id);
             return redirectView;
@@ -109,7 +109,7 @@ public class LoginController {
     public RedirectView ncallback(@RequestParam("code") String code, @RequestParam("state") String state, HttpServletResponse res) throws ParseException, UnsupportedEncodingException {
 
         String social = "naver";
-        String url = "http://localhost:3000/qrcheckin?id=";
+        String url = "http://nanunyeogi.paas-ta.org/qrcheckin?id=";
         RedirectView redirectView = new RedirectView();
         HashMap<String, Object> token_map = naverService.getToken(code, state);
 
@@ -142,7 +142,7 @@ public class LoginController {
 
         User user = userService.signin(map);
         if (user.getPhone() == null) {
-            String registerUrl = "http://localhost:3000/phoneregister?id=";
+            String registerUrl = "http://nanunyeogi.paas-ta.org/phoneregister?id=";
             RedirectView redirectView2 = new RedirectView();
             redirectView2.setUrl(registerUrl + id);
             return redirectView2;

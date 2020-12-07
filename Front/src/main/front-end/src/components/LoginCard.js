@@ -16,13 +16,13 @@ function LoginCard() {
                             src={naverImage}
                             text='네이버로 로그인하기.'
                             label='Naver'
-                            path='https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=NpWqZIHItQqZii0GRios&redirect_uri=http://localhost:8080/ncallback&state=130'
+                            path='https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=NpWqZIHItQqZii0GRios&redirect_uri=http://nanserver.paas-ta.org/ncallback&state=130'
                         />
                         <CardItem
                             src={kakaoImage}
                             text='카카오로 로그인하기.'
                             label='Kakao'
-                            path='https://kauth.kakao.com/oauth/authorize?client_id=a863152a6c9a88819b4482a0b970723a&redirect_uri=http://localhost:8080/kcallback&response_type=code'
+                            path='https://kauth.kakao.com/oauth/authorize?client_id=a863152a6c9a88819b4482a0b970723a&redirect_uri=http://nanserver.paas-ta.org/kcallback&response_type=code'
                         />
                     </ul>
                 </div>

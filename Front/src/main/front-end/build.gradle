@@ -71,10 +71,3 @@ task copyWebApp(type: Copy) {
 appNpmBuild.dependsOn appNpmInstall
 copyWebApp.dependsOn appNpmBuild
 compileJava.dependsOn copyWebApp
-
-
-출처: https://gran007.tistory.com/entry/React-프로젝트-spring-boot로-배포하기-2 [JLee's Blog]
-
-출처: https://gran007.tistory.com/entry/React-프로젝트-spring-boot로-배포하기-2 [JLee's Blog]
-
-출처: https://gran007.tistory.com/entry/React-프로젝트-spring-boot로-배포하기-2 [JLee's Blog]

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {HashRouter as Router, Switch, Route, HashRouter} from 'react-router-dom';
 import Home from './components/pages/Home';
 import MyPage from './components/pages/MyPage';
 import SelfCheck from './components/pages/SelfCheck';
@@ -16,7 +16,7 @@ function App() {
 
     return (
         <>
-            <Router>
+            <HashRouter>
                 <Navbar/>
                 <Switch>
                     <Route path='/' exact component={Home}/>
@@ -27,10 +27,10 @@ function App() {
                     <Route path='/login' component={Login}/>
                     <Route path='/aboutus' component={AboutUs}/>
                     <Route path='/gpslocation' component={GPSLocation}/>
-                    <Route path='/phoneregister' component={PhoneRegister}/>
+                    <Route path='/#phoneregister' component={PhoneRegister}/>
                     <Route path='/getlocations' component={MyPage}/>
                 </Switch>
-            </Router>
+            </HashRouter>
         </>
     );
 }

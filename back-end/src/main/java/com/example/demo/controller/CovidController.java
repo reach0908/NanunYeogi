@@ -29,10 +29,15 @@ public class CovidController {
     private CovidService covidService;
 
     @PostMapping(value = "/covid/{cid}")
-    public void AlertCovid(@RequestParam int cid, @RequestBody HashMap<String, String> map) {
+    public void AlertCovid(@PathVariable int cid, @RequestBody HashMap<String, String> map) {
 //        Date date=new Date(map.get("date"));
         // 비교후 메세지 전송
         covidService.AlertCovid(cid, map);
+    }
+
+    @PostMapping(value = "/covid")
+    public void AlertCovid(@RequestBody HashMap<String, String> map) {
+        covidService.insertCovid(map);
     }
 
     @GetMapping(value = "/covid")

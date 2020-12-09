@@ -44,13 +44,14 @@ public class LocationService {
     public void setLocation(String uid, HashMap<String, String> map) {
         double latitude = Double.parseDouble(map.get("latitude"));
         double longitude = Double.parseDouble(map.get("longitude"));
+        Timestamp date = Timestamp.valueOf(map.get("date"));
 
         User user=userRepository.getUserById(uid);
         Location location = new Location();
         location.setUser(user);
         location.setLatitude(latitude);
         location.setLongitude(longitude);
-        location.setCreated_at(new Timestamp(new Date().getTime()));
+        location.setCreated_at(date);
 
         locationRepository.save(location);
     }
@@ -62,15 +63,15 @@ public class LocationService {
         return locations;
     }
 
-    public int CountAllLocations(String uid)
+    public int CountAllLocations(String uid,Timestamp date)
     {
-        List<Location> locations=locationRepository.getLocationsByUserIdAndCreated_atBetweenBy2Weeks(uid);
+        List<Location> locations=locationRepository.getLocationsByUserIdAndCreated_atBetweenBy2Weeks(uid,date);
         return locations.size();
     }
 
-    public int CountTodayLocations(String uid)
+    public int CountTodayLocations(String uid,Timestamp date)
     {
-        List <Location> locations=locationRepository.getLocationsByUserIdAndCreated_atEquals(uid,new Timestamp(new Date().getTime()));
+        List <Location> locations=locationRepository.getLocationsByUserIdAndCreated_atEquals(uid,date);
         return locations.size();
     }
 

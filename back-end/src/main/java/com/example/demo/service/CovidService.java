@@ -19,6 +19,7 @@ import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.persistence.Column;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -85,6 +86,23 @@ public class CovidService {
         return items.toString();
     }
 
+    public void insertCovid(HashMap<String, String> map) {
+        int num=Integer.parseInt(map.get("covid_id"));
+        double latitude=Double.parseDouble(map.get("latitude"));
+        double longitude=Double.parseDouble(map.get("longitude"));
+
+        Timestamp created_at=Timestamp.valueOf(map.get("date"));
+
+        Covid covid=new Covid();
+        covid.setCovid_id(num);
+        covid.setLatitude(latitude);
+        covid.setLongitude(longitude);
+        covid.setCreated_at(created_at);
+
+        covidRepository.save(covid);
+
+    }
+
     public void AlertCovid(int cid, HashMap<String, String> map) {
 
     	// Date format을 "yyyy-MM-dd" 형식으로 지정
@@ -92,7 +110,7 @@ public class CovidService {
     			Date date = new Date();
     			//map 형식으로 받아온 String type의 date를 미리지정한 Date fromat으로 변형
     			try {
-    				date = fm.parse(map.get("Date"));
+    				date = fm.parse(map.get("date"));
     			} catch (ParseException e) {
     				e.printStackTrace();
     			}

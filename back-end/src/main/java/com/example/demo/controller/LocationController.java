@@ -28,19 +28,18 @@ public class LocationController {
     private LocationService locationService;
 
     @GetMapping("/locations/{id}")
-    public ResponseEntity<Map<String,Object>> Countlocations(@PathVariable String id)
+    public Map<String,Object> Countlocations(@PathVariable String id,@RequestParam("date") String temp)
     {
-        int today=locationService.CountTodayLocations(id);
-        int total=locationService.CountAllLocations(id);
+        Timestamp date = Timestamp.valueOf(temp);
+        int today=locationService.CountTodayLocations(id,date);
+        int total=locationService.CountAllLocations(id,date);
 
-        HttpStatus status=null;
         Map<String,Object> resultMap=new HashMap<>();
 
-        status=HttpStatus.ACCEPTED;
         resultMap.put("today",today);
         resultMap.put("total",total);
 
-        return new ResponseEntity<Map<String,Object>>(resultMap,status);
+        return resultMap;
     }
 
 

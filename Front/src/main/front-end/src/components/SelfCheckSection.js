@@ -7,7 +7,7 @@ export default class SelfCheckSection extends Component {
 
     state = {
         
-        recordList: [],
+        recordList: {},
     };
 
     loadMyrecords = async () => {
@@ -28,6 +28,7 @@ export default class SelfCheckSection extends Component {
 
     render() {
         const record = this.state.recordList;
+        console.log("record",record)
         
         return (
             <div>

@@ -21,7 +21,7 @@ public interface CovidRepository extends JpaRepository<Covid, Integer> {
     @Query(value = "select * from covid where created_at between date_format(date_add(?1,interval -2 day),'%Y-%m-%d') and date_format(date_add(?1,interval 3 day),'%Y-%m-%d')", nativeQuery = true)
     public List<Covid> getLocationsByCreated_atEquals(Timestamp created_at);
 
-    @Query(value = "select * from covid where covid_id= :c_id and created_at between date_format(date_add(:Date,interval -2 day),'%Y-%m-%d') and date_format(date_add(:Date,interval 3 day),'%Y-%m-%d')"
+    @Query(value = "select * from covid where covid_id= ?1 and created_at between date_format(date_add(?2,interval -2 day),'%Y-%m-%d') and date_format(date_add(?2,interval 3 day),'%Y-%m-%d')"
 			,nativeQuery = true)
-    public List<Covid> getCovidByCovidIdAndCreated_atBetween(@Param("c_id")int covid_id,@Param("Date")Timestamp created_at);
+    public List<Covid> getCovidByCovidIdAndCreated_atBetween(int covid_id,Timestamp created_at);
 }

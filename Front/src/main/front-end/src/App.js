@@ -8,8 +8,8 @@ import SelfCheck from './components/pages/SelfCheck';
 import SignUp from './components/pages/SignUp';
 import Login from './components/pages/Login';
 import QrCheckIn from './components/pages/QrCheckIn';
-import AboutUs from './components/pages/AboutUs'
-import PhoneRegister from './components/pages/PhoneRegister'
+import AboutUs from './components/pages/AboutUs';
+import PhoneRegister from './components/pages/PhoneRegister';
 import GPSLocation from './components/pages/GPSLocation';
 
 function App() {

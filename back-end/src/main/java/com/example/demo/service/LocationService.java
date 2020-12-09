@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.domain.Location;
 
 //import com.example.demo.dto.Location_dto;
+import com.example.demo.domain.User;
 import com.example.demo.repository.LocationRepository;
 import com.example.demo.repository.UserRepository;
 import org.json.simple.JSONArray;
@@ -44,8 +45,9 @@ public class LocationService {
         double latitude = Double.parseDouble(map.get("latitude"));
         double longitude = Double.parseDouble(map.get("longitude"));
 
+        User user=userRepository.getUserById(uid);
         Location location = new Location();
-        location.setUser(userRepository.getOne(uid));
+        location.setUser(user);
         location.setLatitude(latitude);
         location.setLongitude(longitude);
         location.setCreated_at(new Timestamp(new Date().getTime()));
@@ -58,6 +60,18 @@ public class LocationService {
 
         System.out.println(locations.toString());
         return locations;
+    }
+
+    public int CountAllLocations(String uid)
+    {
+        List<Location> locations=locationRepository.getLocationsByUserIdAndCreated_atBetweenBy2Weeks(uid);
+        return locations.size();
+    }
+
+    public int CountTodayLocations(String uid)
+    {
+        List <Location> locations=locationRepository.getLocationsByUserIdAndCreated_atEquals(uid,new Timestamp(new Date().getTime()));
+        return locations.size();
     }
 
     public List<Location> navigation(String uid, Timestamp date) throws Exception {

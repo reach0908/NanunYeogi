@@ -28,18 +28,18 @@ public class LocationController {
     private LocationService locationService;
 
     @GetMapping("/locations/{id}")
-    public Map<String,Object> Countlocations(@PathVariable String id,@RequestParam("date") String temp)
+    public List<HashMap<String,String>> Countlocations(@PathVariable String id, @RequestParam(name = "date") String temp)
     {
         Timestamp date = Timestamp.valueOf(temp);
-        int today=locationService.CountTodayLocations(id,date);
-        int total=locationService.CountAllLocations(id,date);
-
-        Map<String,Object> resultMap=new HashMap<>();
+        String today=Integer.toString(locationService.CountTodayLocations(id,date));
+        String total=Integer.toString(locationService.CountAllLocations(id,date));
+        List<HashMap<String, String>> counts = new LinkedList<>();
+        HashMap<String,String> resultMap=new HashMap<>();
 
         resultMap.put("today",today);
         resultMap.put("total",total);
-
-        return resultMap;
+        counts.add(resultMap);
+        return counts;
     }
 
 

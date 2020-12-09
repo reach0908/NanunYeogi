@@ -33,11 +33,9 @@ public interface LocationRepository extends JpaRepository<Location, Integer> {
             , nativeQuery = true)
     public List<Location> getLocationsByUserIdAndCreated_atBetween(String uid, Date date);
 
-    @Query(value = "select * FROM location where user_id= :user_id and created_at between  date_format(date_add(:Date,interval 0 day),'%Y-%m-%d') and date_format(date_add(:Date,interval 2 day),'%Y-%m-%d');",nativeQuery = true)
-    public List<Location> getLocationsByUserIdAndCreated_atEquals2(@Param("user_id")String uesr_id,@Param("Date")Timestamp created_at);
+    @Query(value = "select * FROM location where user_id= :user_id and created_at between  date_format(date_add(:Date,interval 0 day),'%Y-%m-%d') and date_format(date_add(:Date,interval 2 day),'%Y-%m-%d');", nativeQuery = true)
+    public List<Location> getLocationsByUserIdAndCreated_atEquals2(@Param("user_id") String uesr_id, @Param("Date") Timestamp created_at);
 
-    @Query(value = "select * from location where user_id=?1 and created_at between  date_add(?2,interval -14 day) and ?2;",nativeQuery = true)
+    @Query(value = "select * from location where user_id=?1 and created_at between  date_format(date_add(?2,interval -14 day),'%Y-%m-%d') and date_format(?2,'%Y-%m-%d');", nativeQuery = true)
     public List<Location> getLocationsByUserIdAndCreated_atBetweenBy2Weeks(String uid,Timestamp date);
-
 }
-

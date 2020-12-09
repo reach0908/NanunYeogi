@@ -2,17 +2,21 @@ import React, {Component} from 'react';
 import '../App.css';
 import './HeroSection.css';
 import axios from 'axios';
+import moment from "moment";
 
 export default class SelfCheckSection extends Component {
 
     state = {
-        
-        recordList: {},
+        startDate: new Date(),
+        recordList: [],
     };
 
     loadMyrecords = async () => {
 
-        axios.get('http://nanserver.paas-ta.org/locations/' + window.localStorage.getItem("id")).then((response) => {
+        const date = this.state.startDate;
+        const dateTime = moment(date).format("YYYY-MM-DD HH:mm:ss");
+        axios.get('http://nanserver.paas-ta.org/locations/' + window.localStorage.getItem("id"),{params: {date: dateTime}}).then((response) => {
+            console.log(response.data)
             this.setState(
                 {recordList: response.data}
             )

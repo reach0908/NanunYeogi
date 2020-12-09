@@ -52,7 +52,7 @@ class GetMyPaths extends Component {
                     <NaverMap key={startMarker.id}
                               id="map2"// default: react-naver-map
                               style={{
-                                  width: '80%', // 네이버지도 가로 길이
+                                  width: '100%', // 네이버지도 가로 길이
                                   height: '100vh' // 네이버지도 세로 길이
                               }}
                               defaultCenter={startMarker} // 지도 초기 위치

@@ -76,7 +76,7 @@ public class LoginController {
         map.put("social", social);
 
         User user = userService.signin(map);
-        if (user.getPhone() == null) {
+        if (user.getPhoneNum() == null) {
             String registerUrl = "http://nanunyeogi.paas-ta.org/phoneregister?id=";
             RedirectView redirectView = new RedirectView();
             redirectView.setUrl(registerUrl + id);
@@ -141,7 +141,7 @@ public class LoginController {
         System.out.println(profile);
 
         User user = userService.signin(map);
-        if (user.getPhone() == null) {
+        if (user.getPhoneNum() == null) {
             String registerUrl = "http://nanunyeogi.paas-ta.org/phoneregister?id=";
             RedirectView redirectView2 = new RedirectView();
             redirectView2.setUrl(registerUrl + id);

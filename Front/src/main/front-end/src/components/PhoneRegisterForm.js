@@ -33,6 +33,7 @@ export default class PhoneRegisterForm extends Component {
         const query = queryString.parse(search);
         const {id} = query;
         console.log(phone);
+        console.log(id);
 
         axios.post('http://nanserver.paas-ta.org/phoneregister/' + {id}, {phoneNumber: this.state.phoneNumber})
             .then((res) => {

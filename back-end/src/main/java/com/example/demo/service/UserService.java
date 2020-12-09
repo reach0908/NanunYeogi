@@ -48,7 +48,7 @@ public class UserService {
 
     public User updatePhone(String uid, String Phone) {
         User user = userRepository.getUserById(uid);
-        user.setPhone(Phone);
+        user.setPhoneNum(Phone);
         userRepository.save(user);
 
         return user;

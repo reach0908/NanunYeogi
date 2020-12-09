@@ -73,7 +73,7 @@ public class CovidService {
         }
         rd.close();
         conn.disconnect();
-        System.out.println(sb.toString());
+//        System.out.println(sb.toString());
 
         JSONObject jsonObject = XML.toJSONObject(sb.toString());
 

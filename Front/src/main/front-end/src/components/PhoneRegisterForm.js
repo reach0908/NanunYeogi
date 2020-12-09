@@ -50,7 +50,7 @@ export default class PhoneRegisterForm extends Component {
                             알림을 받기 위한 핸드폰 번호를 입력해 주세요!
                         </h1>
                         <div className='form-inputs'>
-                            <label className='form-label'>Email</label>
+                            <label className='form-label'>PhoneNumber</label>
                             <input
                                 className='form-input'
                                 type='text'

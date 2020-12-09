@@ -135,7 +135,7 @@ function Today() {
                 // loading 상태를 true 로 바꿈
                 setLoading(true);
                 const response = await axios.get(
-                    'http://nanunyeogi.paas-ta.org/covid'
+                    'http://nanserver.paas-ta.org/covid'
                 );
                 setUsers(response.data.item); // 데이터는 response.data 안에^^
                 console.log(users);

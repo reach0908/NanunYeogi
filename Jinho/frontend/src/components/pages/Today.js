@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import '../Cards.css';
 import Table from '@material-ui/core/Table';
 import TableRow from '@material-ui/core/TableRow';
@@ -32,10 +31,8 @@ function Today() {
         { id : 15, site: "http://www.daegu.go.kr/dgcontent/index.do", names: "대구"},
         { id : 16, site: "http://www.busan.go.kr/covid19/Corona19.do", names: "부산"},
         { id : 17, site: "https://www.seoul.go.kr/coronaV/coronaStatus.do", names: "서울"},
-        { id : 18, site: "https://search.naver.com/search.naver?where=nexearch&sm=top_sug.pre&fbm=1&acr=1&acq=%EC%BD%94%EB%A1%9C%EB%82%98&qdt=0&ie=utf8&query=%EC%BD%94%EB%A1%9C%EB%82%98+%ED%99%95%EC%A7%84%EC%9E%90", names: "합계"}
-        
+        { id : 18, site: "https://search.naver.com/search.naver?where=nexearch&sm=top_sug.pre&fbm=1&acr=1&acq=%EC%BD%94%EB%A1%9C%EB%82%98&qdt=0&ie=utf8&query=%EC%BD%94%EB%A1%9C%EB%82%98+%ED%99%95%EC%A7%84%EC%9E%90", names: "전국"}
     ]
-
     useEffect(() => {
         const fetchUsers = async () => {
             try {
@@ -49,7 +46,6 @@ function Today() {
                 );
                 setUsers(response.data.item); // 데이터는 response.data 안에^^
                 console.log(users);
-                console.log(arrays);
             } catch (e) {
                 setError(e);
             }
@@ -69,14 +65,14 @@ function Today() {
                 <div className='cards__container'>
                     <div className='cards__wrapper'>
                         <h5 >{users[0].createDt} 기준</h5>
-                        <ul className='cards__items'>
-                        
+                        <ul className='cards__items'>            
                             <Table>
                                 <TableHead>
                                     <TableRow>
                                         <TableCell width='100'>지역</TableCell>
                                         <TableCell width='150'>총확진자 수</TableCell>
                                         <TableCell width='150'>신규확진자 수</TableCell>
+                                        <TableCell width='180'>전일 대비 증가추이</TableCell>
                                         <TableCell width='150'>사이트</TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -86,6 +82,7 @@ function Today() {
                                             <TableCell>{users[array.id].gubun}</TableCell>
                                             <TableCell>{users[array.id].defCnt}</TableCell>
                                             <TableCell>{users[array.id].incDec}</TableCell>
+                                            <TableCell>{users[array.id].incDec - users[array.id + 19].incDec > 0 ? <h5 style={{ color: "red" }}>{users[array.id].incDec - users[array.id + 19].incDec}▲ </h5> : <h5 style={{ color: "blue" }}>{users[array.id].incDec - users[array.id + 19].incDec}▼</h5> }</TableCell>
                                             <TableCell><a target="_blank" href={array.site}>{array.names}홈페이지</a></TableCell>
                                         </TableRow>
                                     ))}
@@ -100,11 +97,3 @@ function Today() {
 }
 
 export default Today;
-
-// {
-//     users.map(user => (
-//         <li key={user.defCnt}>
-//             {user.gubun} , {user.isolIngCnt}
-//         </li>
-//     ))
-// }

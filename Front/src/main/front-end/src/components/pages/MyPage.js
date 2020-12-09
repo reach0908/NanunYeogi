@@ -1,15 +1,24 @@
 import React from 'react';
 import '../../App.css'
+import CovidState from '../CovidState';
 import Footer from '../Footer';
 import MapSlider from '../MapSlider';
-import Today from '../Today'
 
 
 function Home() {
     return (
         <>
             <MapSlider></MapSlider>
-            <Today></Today>
+            <div className='cards'>
+                <div className='cards__container'>
+                    <div className='cards__wrapper'>
+                        <ul className='cards__items'>
+                            <CovidState></CovidState>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
             <Footer></Footer>
         </>
     );

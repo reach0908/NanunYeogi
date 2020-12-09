@@ -93,11 +93,14 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/logout")
-    public String logout(HttpSession session) {
+    public RedirectView logout(HttpSession session) {
+        String url = "http://nanunyeogi.paas-ta.org";
         kakaoService.kakaoLogout((String) session.getAttribute("access_Token"));
         session.removeAttribute("access_Token");
         session.removeAttribute("userId");
-        return "Login";
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl(url);
+        return redirectView;
     }
 
     @GetMapping("naver")

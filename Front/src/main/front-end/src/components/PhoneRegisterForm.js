@@ -27,15 +27,8 @@ export default class PhoneRegisterForm extends Component {
     handleSubmit = event => {
 
         event.preventDefault();
-        // console.log(this.state.phoneNumber);
-        const phone = this.state.phoneNumber;
-        const {search} = window.location;
-        const query = queryString.parse(search);
-        const {id} = query;
-        console.log(phone);
-        console.log(id);
 
-        axios.post('http://nanserver.paas-ta.org/phoneregister/' + {id}, {phoneNumber: this.state.phoneNumber})
+        axios.post('http://nanserver.paas-ta.org/phoneregister/' + window.localStorage.getItem("id"), {phoneNumber: this.state.phoneNumber})
             .then((res) => {
                 window.location.href = '/qrcheckin';
             }).catch((err) => {
@@ -53,7 +46,7 @@ export default class PhoneRegisterForm extends Component {
                             알림을 받기 위한 핸드폰 번호를 입력해 주세요!
                         </h1>
                         <div className='form-inputs'>
-                            <label className='form-label'>PhoneNumber</label>
+                            <label className='form-label'>Email</label>
                             <input
                                 className='form-input'
                                 type='text'

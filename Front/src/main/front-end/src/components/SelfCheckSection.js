@@ -18,7 +18,8 @@ export default class SelfCheckSection extends Component {
         const date = this.state.startDate;
         const dateTime = moment(date).format("YYYY-MM-DD HH:mm:ss");
         console.log(dateTime);
-        axios.get('http://nanserver.paas-ta.org/locations/' + window.localStorage.getItem("id"), {params: {date: dateTime}}).then((response) => {
+        axios.get('http://nanserver.paas-ta.org/locations/' + window.localStorage.getItem("id"), ).then((response) => {
+            console.log("record",response.data);
             this.setState(
                 {recordList: response.data}
             )

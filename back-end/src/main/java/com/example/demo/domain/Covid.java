@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Entity
 @Table
-@IdClass(CovidPk.class)
+//@IdClass(CovidPk.class)
 public class Covid {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

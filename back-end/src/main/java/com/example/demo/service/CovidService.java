@@ -105,7 +105,7 @@ public class CovidService {
     			List<User> totalUser = new ArrayList<>();
     			
     			// 모든 회원 목록을 불러옴
-    			totalUser = userRepository.getTotalUser();
+    			totalUser = userRepository.findAll();
     			//프로시저 동안 유저한테 메세지를 보냈는지 체크 
     			boolean checked = false;
     			//확진자 이동경로가 남았을때

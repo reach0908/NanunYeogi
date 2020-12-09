@@ -7,18 +7,17 @@ import kakaoImage from './images/kakao.jpg'
 import naverMap from './images/navermap.png'
 import MyPageCard from './MyPageCard';
 import React, {Component} from 'react'
+import queryString from 'query-string';
 
 export default class CheckinCard extends Component {
 
     componentDidMount() {
-        componentDidMount() {
-            const {search} = window.location;
-            const query = queryString.parse(search);
-            const {id} = query;
-            console.log(id);
-            window.localStorage.setItem("id", id);
-            console.log(localStorage.getItem("id"));
-        }
+        const {search} = window.location;
+        const query = queryString.parse(search);
+        const {id} = query;
+        console.log(id);
+        window.localStorage.setItem("id", id);
+        console.log(localStorage.getItem("id"));
     }
 
     render() {

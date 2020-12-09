@@ -5,6 +5,7 @@ import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class UserService {
 
         return user;
     }
+
 
     public List<User> AllUsers() {
         List<User> users = userRepository.findAll();

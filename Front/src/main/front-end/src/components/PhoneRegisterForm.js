@@ -12,7 +12,7 @@ export default class PhoneRegisterForm extends Component {
         const {id} = query;
         console.log(id);
         window.localStorage.setItem("id", id);
-        console.log(localStorage.getItem("id"));
+        console.log(window.localStorage.getItem("id"));
     }
 
     state = {

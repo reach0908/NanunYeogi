@@ -6,6 +6,8 @@ import com.example.demo.domain.User;
 import com.example.demo.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -24,6 +26,23 @@ public class LocationController {
 
     @Autowired
     private LocationService locationService;
+
+    @GetMapping("/locations/{id}")
+    public ResponseEntity<Map<String,Object>> Countlocations(@PathVariable String id)
+    {
+        int today=locationService.CountTodayLocations(id);
+        int total=locationService.CountAllLocations(id);
+
+        HttpStatus status=null;
+        Map<String,Object> resultMap=new HashMap<>();
+
+        status=HttpStatus.ACCEPTED;
+        resultMap.put("today",today);
+        resultMap.put("total",total);
+
+        return new ResponseEntity<Map<String,Object>>(resultMap,status);
+    }
+
 
     // 위치 추가
     @PostMapping("/setlocations/{id}")

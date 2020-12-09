@@ -4,7 +4,9 @@ import {Button} from './Button';
 import {LoginButton} from './LoginButton';
 import './HeroSection.css';
 
+
 function SelfCheckSection() {
+
     return (
         <div className='self-container'>
             <h1 className='title'>Self-Check(개발중)</h1>

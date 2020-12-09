@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../Cards.css';
-import { Line } from 'react-chartjs-2';
 import Table from '@material-ui/core/Table';
 import CovidState from '../CovidState';
 import TableRow from '@material-ui/core/TableRow';
@@ -17,7 +16,7 @@ function Today() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const arrays = [
-        { id : 0, site:"https://search.naver.com/search.naver?where=nexearch&sm=top_sug.pre&fbm=1&acr=1&acq=%EC%BD%94%EB%A1%9C%EB%82%98&qdt=0&ie=utf8&query=%EC%BD%94%EB%A1%9C%EB%82%98+%ED%99%95%EC%A7%84%EC%9E%90", names : "해외"},
+        { id : 0, site: "https://search.naver.com/search.naver?where=nexearch&sm=top_sug.pre&fbm=1&acr=1&acq=%EC%BD%94%EB%A1%9C%EB%82%98&qdt=0&ie=utf8&query=%EC%BD%94%EB%A1%9C%EB%82%98+%ED%99%95%EC%A7%84%EC%9E%90", names : "해외"},
         { id : 1, site: "https://www.jeju.go.kr/corona19.jsp", names: "제주"},
         { id : 2, site: "http://xn--19-q81ii1knc140d892b.kr/main/main.do", names: "경남"},
         { id : 3, site: "https://www.gb.go.kr/Main/open_contents/section/wel/page.do?mnu_uid=5857&LARGE_CODE=360&MEDIUM_CODE=90&SMALL_CODE=10&mnu_order=2", names: "경북"},

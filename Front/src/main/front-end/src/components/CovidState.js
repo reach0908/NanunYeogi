@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Bar } from "react-chartjs-2";
+import { Bar, Line } from "react-chartjs-2";
 
 class CovidState extends Component {
     constructor(props) {
@@ -47,10 +47,16 @@ class CovidState extends Component {
     }
     render() {
         return (
+            <>
             <div style={{ position: "relative", width: 800, height: 500 }}>
-                <h1>전일 대비 감염자 증가추이</h1>
+                <h1>전일 대비 감염자 증가추이-1</h1>
                 <Bar data={this.state.chartData} />
             </div>
+            <div style={{ position: "relative", width: 800, height: 500 }}>
+                <h1>전일 대비 감염자 증가추이-2</h1>
+                <Line data={this.state.chartData}/>
+            </div>
+            </>
         );
     }
 }

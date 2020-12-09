@@ -1,0 +1,59 @@
+{
+  "application_env_json": {
+    "VCAP_APPLICATION": {
+      "cf_api": "https://api.paas-ta.org",
+      "limits": {
+        "fds": 16384,
+        "mem": 1024,
+        "disk": 1024
+      },
+      "application_name": "NanServer",
+      "application_uris": [
+        "nanserver.paas-ta.org"
+      ],
+      "name": "NanServer",
+      "space_name": "dev",
+      "space_id": "57304076-c1bc-4602-af3b-eb36377843ec",
+      "uris": [
+        "nanserver.paas-ta.org"
+      ],
+      "users": null,
+      "application_id": "81578be5-2f8a-4629-aa61-2225ebf25ee9",
+      "version": "28f14344-7d40-4d6b-81ac-f046ecb3f782",
+      "application_version": "28f14344-7d40-4d6b-81ac-f046ecb3f782"
+    }
+  },
+  "environment_json": {
+    "JBP_CONFIG_OPEN_JDK_JRE": "{ jre: { version: 13.+ }}"
+  },
+  "running_env_json": {},
+  "staging_env_json": {},
+  "system_env_json": {
+    "VCAP_SERVICES": {
+      "Mysql-DB": [
+        {
+          "label": "Mysql-DB",
+          "provider": null,
+          "plan": "Mysql-Plan1-10con",
+          "name": "mysql",
+          "tags": [
+            "mysql",
+            "document"
+          ],
+          "instance_name": "mysql",
+          "binding_name": null,
+          "credentials": {
+            "hostname": "10.10.4.14",
+            "password": "2d1660a959c7f5c3",
+            "port": "3306",
+            "name": "op_93f7d410_f697_4798_8e4e_aee89bf6ebeb",
+            "uri": "mysql://ddd12e542ee680f8:2d1660a959c7f5c3@10.10.4.14:3306/op_93f7d410_f697_4798_8e4e_aee89bf6ebeb",
+            "username": "ddd12e542ee680f8"
+          },
+          "syslog_drain_url": null,
+          "volume_mounts": []
+        }
+      ]
+    }
+  }
+}

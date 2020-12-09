@@ -76,7 +76,7 @@ public class LoginController {
         map.put("social", social);
 
         User user = userService.signin(map);
-        if (user.getPhone() == null) {
+        if (user.getPhoneNum() == null) {
             String registerUrl = "http://nanunyeogi.paas-ta.org/phoneregister?id=";
             RedirectView redirectView = new RedirectView();
             redirectView.setUrl(registerUrl + id);
@@ -93,11 +93,14 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/logout")
-    public String logout(HttpSession session) {
+    public RedirectView logout(HttpSession session) {
+        String url = "http://nanunyeogi.paas-ta.org";
         kakaoService.kakaoLogout((String) session.getAttribute("access_Token"));
         session.removeAttribute("access_Token");
         session.removeAttribute("userId");
-        return "Login";
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl(url);
+        return redirectView;
     }
 
     @GetMapping("naver")
@@ -141,7 +144,7 @@ public class LoginController {
         System.out.println(profile);
 
         User user = userService.signin(map);
-        if (user.getPhone() == null) {
+        if (user.getPhoneNum() == null) {
             String registerUrl = "http://nanunyeogi.paas-ta.org/phoneregister?id=";
             RedirectView redirectView2 = new RedirectView();
             redirectView2.setUrl(registerUrl + id);

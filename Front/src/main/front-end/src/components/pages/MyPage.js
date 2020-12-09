@@ -2,7 +2,7 @@ import React from 'react';
 import '../../App.css'
 import Footer from '../Footer';
 import MapSlider from '../MapSlider';
-import Today from '../Today'
+import Today from './Today'
 
 
 function Home() {

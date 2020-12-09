@@ -14,6 +14,7 @@ import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
@@ -26,6 +27,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -85,83 +87,106 @@ public class CovidService {
 
     public void AlertCovid(int cid, HashMap<String, String> map) {
 
-        Timestamp date = Timestamp.valueOf(map.get("date"));
-        System.out.println(map.get("date"));
-        List<Covid> covoidList = covidRepository.getCovidByCovid_numAndCreated_atBetween(cid, new Timestamp(date.getTime()));
+    	// Date format을 "yyyy-MM-dd" 형식으로 지정
+    			SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+    			Date date = new Date();
+    			//map 형식으로 받아온 String type의 date를 미리지정한 Date fromat으로 변형
+    			try {
+    				date = fm.parse(map.get("Date"));
+    			} catch (ParseException e) {
+    				e.printStackTrace();
+    			}
+    			// 확진일 기준 -2~+3일간 확진자 이동경로를 불러옴
+    			// 쿼리 : select * from covid where covid_id= cid and created_at between date_format(date_add( date,interval -2 day),'%Y-%m-%d')
+    			//		and date_format(date_add(date,interval 3 day),'%Y-%m-%d')
+    			List<Covid> covoidList = covidRepository.getCovidByCovidIdAndCreated_atBetween(cid, new Timestamp(date.getTime()));
 
-        List<String> alertUser = new ArrayList<>();
+    			List<String> alertUser = new ArrayList<>();
+    			List<User> totalUser = new ArrayList<>();
+    			
+    			// 모든 회원 목록을 불러옴
+    			totalUser = userRepository.getTotalUser();
+    			//프로시저 동안 유저한테 메세지를 보냈는지 체크 
+    			boolean checked = false;
+    			//확진자 이동경로가 남았을때
+    			for (int i = 0; i < covoidList.size(); i++) {
+    				//확진자의 이동경로 정보 하나를 불러옴
+    				Covid covid = covoidList.get(i);
+    				//현재 불러온 유저리스트의 모든 유저에 대해서 메세지 전송여부 판단 후 감염가능성 판단 시작
+    				for (int j = 0; j < totalUser.size(); j++) {
+    					checked = false;
+    					for (int l = 0; l < alertUser.size(); l++) {
+    						if (alertUser.get(l) == totalUser.get(j).getId()) {
+    							checked = true;
+    						}
+    					}
+    					if (!checked) {
+    						// 모든 회원 목록에서 하나를 가져와 확진자 방문일 +2일 기준으로 확진자 이동날짜에 이동한 회원의 이동 경로를 불러옴
+    						List<Location> user_locList = locationRepository
+    								.getLocationsByUserIdAndCreated_atEquals2(totalUser.get(j).getId(), covid.getCreated_at());
+    						
+    						// 만약 이동경로가 없으면 감염가능성 판단 안함
+    						if (!user_locList.isEmpty()) {
 
-        List<User> totalUser = userRepository.findAll();
+    							// 회원의 이동경로따라 확진자와 겹치는 부분 확인
+    							for (int k = 0; k < user_locList.size(); k++) {
+    								
+    								//확진자와 회원의 이동경로의 위도, 경도를 소수점 아래 5자리로 조정
+    								double covidLatitude = Math.round(covid.getLatitude()*100000)/100000.0;
+    								double covidLongtitude = Math.round(covid.getLongitude()*100000)/100000.0;
+    								
+    								
+    								double userLatitude = Math.round(user_locList.get(k).getLatitude()*100000)/100000.0;
+    								double userLongtitude = Math.round(user_locList.get(k).getLongitude()*100000)/100000.0;
+    								
+    								
+    							
+    								// 확진자 이동경로와 회원의 이동경로 사이 거리 측정
+    								double dis = distance(covidLatitude, covidLongtitude,userLatitude, userLongtitude);
+    								
+    								// 이동경로가 100m 이내로 겹칠 경우
+    								if (dis <= 100) { 
+    									// 해당 유저를 경고메세지 전송 유저 목록에 추가
+    									alertUser.add(user_locList.get(k).getUser().getId());
+    									// 문자 발송 param : 회원 전화번호, 이동날짜, 주소
+    									sendMessage(totalUser.get(j).getPhoneNum(), fm.format(user_locList.get(k).getCreated_at()),
+    									getAddress(Double.toString(user_locList.get(k).getLatitude()),Double.toString(user_locList.get(k).getLongitude())).replace("\"", ""));
+    									
+    									//이미 경고메세지를 전송 했으므로  해당 유저에 대한 경로 탐색 종료
+    									k = user_locList.size();
+    								}
+    							}
+    						}
+    					}
+    				}
+    			}
 
-        boolean checked = false;
-        for (int i = 0; i < covoidList.size(); i++) {
-            Covid covid = covoidList.get(i);
-
-            for (int j = 0; j < totalUser.size(); j++) {
-                checked = false;
-                for (int l = 0; l < alertUser.size(); l++) {
-                    if (alertUser.get(l) == totalUser.get(j).getId()) {
-                        checked = true;
-                        break;
-                    }
-                }
-                if (!checked) {
-                    List<Location> user_locList = locationRepository
-                            .getLocationsByUserIdAndCreated_atBetween(totalUser.get(j).getId(), covid.getCreated_at());
-                    if (!user_locList.isEmpty()) {
-                        for (int k = 0; k < user_locList.size(); k++) {
-                            double covidLatitude = Math.round(covid.getLatitude() * 100000) / 100000.0;
-                            double covidLongtitude = Math.round(covid.getLongitude() * 100000) / 100000.0;
-
-                            double userLatitude = Math.round(user_locList.get(k).getLatitude() * 100000) / 100000.0;
-                            double userLongtitude = Math.round(user_locList.get(k).getLongitude() * 100000) / 100000.0;
-
-                            double dis = distance(covidLatitude, covidLongtitude, userLatitude, userLongtitude);
-
-                            System.out.println("거리:" + dis);
-                            if (dis <= 100) {
-                                alertUser.add(user_locList.get(k).getUser().getId());
-
-                                sendMessage(totalUser.get(j).getPhone(),
-                                        user_locList.get(k).getCreated_at().toString(),
-                                        getAddress(Double.toString(user_locList.get(k).getLatitude()),
-                                                Double.toString(user_locList.get(k).getLongitude())));
-                                k = user_locList.size();
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 
     public void sendMessage(String phoneNum, String date, String address) {
 
-        /**
-         * @class ExampleSend
-         * @brief This sample code demonstrate how to send sms through CoolSMS Rest API
-         *        PHP
-         */
 
-        String api_key = "NCSCDR2E1ZHENOI2";
-        String api_secret = "ZKPIREW75GAMJDKKNYMCMUTGIFCUMXCT";
-        Message coolsms = new Message(api_key, api_secret);
-        // 4 params(to, from, type, text) are mandatory. must be filled
-        HashMap<String, String> params = new HashMap<String, String>();
-        params.put("to", phoneNum);
-        params.put("from", "01037256448");
-        params.put("type", "SMS");
-        params.put("text", "2020-07-08, 서울시 중랑구 상도동 상도로68길 12에서 감염가능성이 확인되었습니다. http://nanunyeogi.paas-ta.org/kakao에서 확인하세요");
-        params.put("app_version", "나는여기"); // application name and version
 
-        try {
-            org.json.simple.JSONObject obj = (org.json.simple.JSONObject) coolsms.send(params);
-            System.out.println(obj.toString());
-        } catch (CoolsmsException e) {
-            System.out.println(e.getMessage());
-            System.out.println(e.getCode());
-        }
-    }
+		String api_key = "NCSCDR2E1ZHENOI2";
+		String api_secret = "ZKPIREW75GAMJDKKNYMCMUTGIFCUMXCT";
+		Message coolsms = new Message(api_key, api_secret);
+
+		// 4 params(to, from, type, text) are mandatory. must be filled
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("to", phoneNum);
+		params.put("from", "01037256448");
+		params.put("type", "SMS");
+		params.put("text", date+", "+address+"에서 감염가능성이 확인되었습니다.");
+		params.put("app_version", "나는여기"); // application name and version
+
+		try {
+			org.json.simple.JSONObject obj = (org.json.simple.JSONObject)coolsms.send(params);
+			System.out.println(obj.toString());
+		} catch (CoolsmsException e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getCode());
+		}
+	}
 
     public String getAddress(String lat, String lon) {
 
@@ -207,15 +232,18 @@ public class CovidService {
 
     private static double distance(double lat1, double lon1, double lat2, double lon2) {
 
-        double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+    	 double earthRadius = 6371000; //meters
+		    double dLat = Math.toRadians(lon2-lon1);
+		    double dLng = Math.toRadians(lat2-lat1);
+		    double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+		               Math.cos(Math.toRadians(lon1)) * Math.cos(Math.toRadians(lon2)) *
+		               Math.sin(dLng/2) * Math.sin(dLng/2);
+		    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+		    float dist = (float) (earthRadius * c);
 
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
-
-        dist = dist * 1609.344;//미터
-        return (dist);
+		    return dist;
+		
+		
     }
 
     private static double deg2rad(double deg) {

@@ -8,7 +8,6 @@
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.2.2",
     "axios": "^0.21.0",
-    "bestzip": "^2.1.7",
     "chart.js": "^2.9.4",
     "cors": "^2.8.5",
     "css-loader": "^5.0.1",
@@ -35,8 +34,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "zip": "bestzip bundle.zip build/*"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

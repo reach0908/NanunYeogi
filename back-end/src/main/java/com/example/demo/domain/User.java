@@ -1,9 +1,14 @@
 package com.example.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -12,17 +17,17 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @Column(updatable = false)
+    @Column(updatable=false)
     private String id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false,unique = true)
     private String email;
 
     @Column
     private String social;
-
+    
     @Column
-    private String phone;
+    private String phoneNum;
 //    @OneToMany(mappedBy = "location")
 //    private List<Location> locations=new ArrayList<>();
 

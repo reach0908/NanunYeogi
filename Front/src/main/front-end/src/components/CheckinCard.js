@@ -11,7 +11,14 @@ import React, {Component} from 'react'
 export default class CheckinCard extends Component {
 
     componentDidMount() {
-        console.log(window.localStorage.getItem("id"));
+        componentDidMount() {
+            const {search} = window.location;
+            const query = queryString.parse(search);
+            const {id} = query;
+            console.log(id);
+            window.localStorage.setItem("id", id);
+            console.log(localStorage.getItem("id"));
+        }
     }
 
     render() {

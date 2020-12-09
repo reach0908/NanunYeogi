@@ -27,14 +27,8 @@ export default class PhoneRegisterForm extends Component {
     handleSubmit = event => {
 
         event.preventDefault();
-        // console.log(this.state.phoneNumber);
-        const phone = this.state.phoneNumber;
-        const {search} = window.location;
-        const query = queryString.parse(search);
-        const {id} = query;
-        console.log(phone);
 
-        axios.post('http://nanserver.paas-ta.org/phoneregister/' + {id}, {phoneNumber: this.state.phoneNumber})
+        axios.post('http://nanserver.paas-ta.org/phoneregister/' + window.localStorage.getItem("id"), {phoneNumber: this.state.phoneNumber})
             .then((res) => {
                 window.location.href = '/qrcheckin';
             }).catch((err) => {
